@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    
+    <!-- 외부폰트 가져오기 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        div{
+            color: blue;
+        }
+
+        .font-wrapper{
+            color: red;
+        }
+
+        /* 개발자 도구에서 클릭 후 방향키로 쭉 늘려볼 수 있다. */
+        .font-size{
+            font-size: 30px;
+        }
+
+        .google-font{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            text-align: right;
+        }
+        
+        .margin-align{
+            /* margin-left: auto 할 시, 왼쪽부분이 쭉 늘어나서, 결과적으로는 오른쪽에 딱 붙게 된다. */
+            margin-left: auto;
+            margin-right: auto;
+            /* 이렇게 하면 가운데정렬이다. */
+        }
+
+        /* CSS 상속 : 특정 속성들은 부모 태그를 상속받는다.
+            특히 width, height 사용시 % 사용하면 부모태그 기준으로 적용된다.
+        */
+
+    </style>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+    <p>싸피 트랙</p>
+    <ul>
+        <li>파이썬</li>
+        <li>자바</li>
+        <li>임베디드</li>
+    </ul>
+
+    <p>싸피 반</p>
+    <ol>
+        <li>서울 20반</li>
+        <li>서울 21반</li>
+        <li>광주 6반</li>
+    </ol>
+
+    <!-- a태그에 target 옵션을 _black 로 하면 새창에서 열림. _self(기본값)은 그냥이동함 -->
+    <!-- input에 value = "기본값" placeholder = "힌트" -->
+    <!-- 요즘엔 form 태그를 사용해서 통신하지 않는다고 한다... -->
+    <form action="">
+        <input type="text" />
+        <br />
+        <input type="password" />
+        <br />
+        <input type="submit" value="로그인" />
+    </form>
+
+    <select name="subject" >
+        <option value="python">파이썬</option>
+        <option value="java">자바</option>
+        <option value="c">C</option>
+    </select>
+
+    <hr />
+    <h1>회원가입 양식 만들기</h1>
+    <form action="">
+        이름 <input type="text" value="홍길동"/>
+        <br />
+        아이디 <input type="text" value="kim123"/>
+        <br />
+        비밀번호 <input type="password" value="kim1234"/>
+        <br />
+        남 <input type="radio" name="gender" checked />
+        여 <input type="radio" name="gender" />
+        <br />
+        취미 <select>
+            <option value="coding">코딩하기</option>
+        </select>
+        <br />
+        <input type="submit" value="제출하기" />
+    </form>
+
+    <hr />
+
+    <iframe src="http://ssafy.com/" frameborder="0" width="800" height="400"></iframe>
+    <!-- 유튜브 - 우클릭 - 소스코드 복사로 바로 복사가능. -->
+    <iframe width="1088" height="816" src="https://www.youtube.com/embed/pCJm2DoYDz0" title="03 - Someday (feat. 윤도현 尹道賢 of YB)  Leessang" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- ./ 현재 디렉 ../ 상위디렉 -->
+    <img src="./images/charcuterie-gba781a7b7_1920.jpg" alt="" />
+
+    <!-- inline style 적용 -->
+    <div style="color: purple">
+        blue!!!
+    </div>
+
+    <div class="font-wrapper font-size">
+        하하
+    </div>
+
+    <div class="google-font">
+        역삼역 기러기
+    </div>
+
+    <!-- div.box 같이 하면 자동으로 class 완성이 된다. -->
+    <!-- 아래 Terminal에서 SSAFY 폴더로 이동 후 code . 입력하면 그 폴더만 열 수 있음. -->
+</body>
+</html>

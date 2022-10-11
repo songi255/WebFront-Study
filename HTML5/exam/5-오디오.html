@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <!-- HTML5 부터 추가되어, IE8 이하는 사용불가 -->
+    <audio src="src/test.mp3" autoplay controls></audio>
+    <!-- 주요 속성
+        preload : 재생전 모두 로드할지 결정
+        autoplay : 이것만 써도 되나, autoplay="autoplay"라고 쓰는게 XHTML5표준이다.
+        loop, controls : 마찬가지.
+        controls : 컨트롤바 출력여부
+    -->
+    
+    <hr />
+    <br />
+
+    <!-- 브라우저마다 지원형식 다름. MP3 다 되지만, 라이선스 문제 있을수도.. -->
+    <!-- source 태그로 해결하기. -->
+    <audio controls="controls">
+        <source src="src/test.mp3" type="audio/mp3" />
+        <!-- type은 입력안해도 되지만, 그러면 브라우저가 확인해야되서 트래픽낭비. -->
+        <source src="src/test.ogg" type="audio/ogg" />
+    </audio>
+    <!-- mp3, ogg 사용시 모든 브라우저에서 사용가능 -->
+
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <style>
+    /* 요소위치 지정은 2가지이다.
+        - 절대위치좌표
+            - 드래그해서 만들 수 있어 개발이 쉽다.
+            - 일반적으로 특정크기영역 지정한 태그 내부에서만 사용한다.
+        - 상대위치좌표
+            - 더 많이 사용된다.
+    */    
+
+    .box {
+        width: 100px; height: 100px;
+    }
+
+    /* 절대위치 */
+    .pos_absolute{
+        position: absolute;
+    } /* 절대위치지정. absolute 만 지정하면 브라우저마다 다르게 나오므로, 속성들 같이 사용해야 함. */
+    /* absolute에는 2가지 문제에 대한 공식이있다.
+        1. 부모태그가 영역을 차지하지 않게된다. -> 부모영역에 height 속성을 사용해주어, 영역을 차지하게 한다.
+        2. 부모를 기준으로 위치잡지 않는다. -> 부모영역의 position : relative; 로 설정한다.
+    */
+    .parent {
+        width: 400px; height: 100px; /* 이로써 영역을 차지하게 된다. */
+        border: 3px solid black;
+
+        position: relative;
+    }
+
+
+    .pos1 { left: 50px; top: 10px; }
+    .pos2 { left: 90px; top: 50px; z-index: 9999; } /* z-index는 뭐가 더 위로 나올건지 깊이설정이다. 안하면 뒤에 태그가 더 위에 그려진다. */
+    .pos3 { left: 130px; top: 90px; }
+
+
+    .pos_fixed{ position: fixed; } /* 화면기준으로 절대위치 설정 */
+
+    /* 상대위치 */
+    .pos_static { position: static; direction: ltr; } /* 위 -> 아래 순서대로 배치 - direction속성으로 좌우로 변경가능 */
+    .pos_relative{ position: relative; } /* 상하좌우로 위치이동. static으로 초기위치 지정된 상태에서 상하좌우 이동가능 */
+
+    .red { background-color: red; }
+    .green { background-color: green; }
+    .blue { background-color: blue; }
+
+
+    /* 부모 범위 벗어날 때 처리 */
+    .overflow_hidden { overflow: hidden; }
+    .overflow_scroll { overflow-y: scroll; } /* overflow에 그대로 scroll을 지정하면 x방향 y방향 둘다 스크롤이 생긴다. 한쪽만 생성하려면 이렇게.. */
+    /* 애니메이션 구현할 떄 많이 사용한다. float속성과 함께 다른용도로 쓰이는 경우가 더 많다. */
+    
+    </style>
+</head>
+<body>
+    <p>absolute</p>
+    <div class="box red pos_absolute pos1"></div>
+    <div class="box green pos_absolute pos2"></div>
+    <div class="box blue pos_absolute pos3"></div>
+    
+    <br /><br /><br /><br /><br /><br /><hr />
+
+    <p>fixed</p>
+    <div class="box red pos_fixed"></div>
+    <div class="box green pos_fixed"></div>
+    <div class="box blue pos_fixed"></div>
+
+    <br /><br /><br /><br /><br /><br /><hr />
+
+    <p>static</p>
+    <div class="box red pos_static"></div>
+    <div class="box green pos_static"></div>
+    <div class="box blue pos_static"></div>
+    
+    <br /><br /><br /><br /><br /><br /><hr />
+
+    <p>relative</p>
+    <div class="box red pos_relative"></div>
+    <div class="box green pos_relative"></div>
+    <div class="box blue pos_relative"></div>
+    
+
+    <hr />
+
+    <div class="parent overflow_hidden">
+        <div class="box red pos_absolute pos1"></div>
+        <div class="box green pos_absolute pos2"></div>
+        <div class="box blue pos_absolute pos3"></div>
+    </div>
+
+    <hr />
+
+    <div class="parent overflow_scroll">
+        <div class="box red pos_absolute pos1"></div>
+        <div class="box green pos_absolute pos2"></div>
+        <div class="box blue pos_absolute pos3"></div>
+    </div>
+
+</body>
+</html>

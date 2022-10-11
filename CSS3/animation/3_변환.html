@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        /* transition 변형은 시간의 흐름을 가지고 일어나는 변화. 그렇지 않은 것을 transform. 변환 이라고 한다. */
+        /* html의 3d 구현은 webGL 혹은 CSS3로 나뉜다. 나중에는 WebGL을 봐야겠지.. */
+        /* 대표적인 예시로 impress.js가 있는데, html로 프레젠테이션을 만들 수 있다. css3변형을 사용한다. */
+
+        /* Z축은 사용자와 가까울수록 큰 값이다!*/
+
+        #sec2d {
+            width: 100px; height: 100px;
+            border: 5px solid black;
+        }
+
+        #div2d {
+            width: 100px; height: 100px;
+            background: red;
+
+            transform: rotate(60deg); /* 이외에도 skew, scale, translate, rotate 가 있다. 먼지 다 알자나...?  */
+            /* 근데 여기서 실행 순서는 중요하다. 결과가 달라진다. 예를들어, rot 60 후 x로 50이동하면, X방향이 아니고 60도 돌아간 x방향으로 이동해버린다. 조심!! */
+            transform-origin: 100% 100%; /* origin은 변환중심을 의미하고, X좌표, Y좌표를 의미한다. 100%를 예로들면, 우측 하단 꼭지점으로 설정될 것이다. 키워드도 쓸 수 있다. */
+        }
+
+        /* 3d 예제 */
+
+        #sec3d {
+            width: 200px; height: 200px;
+            position: relative;
+
+            animation: rint 3s linear 0s infinite; /* 단순히 이렇게만 적으면 자손의 3차원 속성은 덧씌워진다. 만약에 자손 각각의 속성은 유지한 채로 변형을 하고 싶다면? */
+            transform-style: preserve-3d; /* 자손의 속성을 유지한채로 변형이 적용된다 ㅋㅋㅋ 개신기하구만. */
+        }
+
+        @keyframes rint {
+            from{
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            to{
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        .div3d {
+            width: 200px; height: 200px;
+            position: absolute; left: 0; top: 0;
+            opacity: 0.3;
+
+            backface-visibility: hidden; /* opacity에 관계없이 뒷면을 보이지 않게 할것인지 선택할 수 있다! ㅋㅋ */
+        }
+
+        #sec3d > div:nth-child(1) {
+            transform: rotateY(0deg) translate3d(0px, 0px, 100px);
+            background: red;
+        }
+        #sec3d > div:nth-child(2) {
+            transform: rotateY(90deg) translate3d(0px, 0px, 100px);
+            background: green;
+        }
+        #sec3d > div:nth-child(3) {
+            transform: rotateY(180deg) translate3d(0px, 0px, 100px);
+            background: blue;
+        }
+        #sec3d > div:nth-child(4) {
+            transform: rotateY(270deg) translate3d(0px, 0px, 100px);
+            background: yellow;
+        }
+
+        /* 윗면, 아랫면 */
+        #sec3d > div:nth-child(5) {
+            transform: rotateX(90deg) translate3d(0px, 0px, 100px);
+            background: brown;
+        }
+        #sec3d > div:nth-child(6) {
+            transform: rotateX(270deg) translate3d(0px, 0px, 100px);
+            background: pink;
+        }
+
+        /* perspective
+            css3에서 가장 이해하기 어려운 속성일 것이다. 원근법을 지정한다.
+            the perspective property defines how many pixels a 3D element is placed from the view 라고 정의되어있다.
+            클수록 픽셀을 밀집해서 보여준다. 일반적으로 400 ~ 2000정도의 값을 준다.
+        */
+
+        body {
+            width: 200px;
+            margin: 200px auto;
+            perspective: 400px; /* 몬가..몬가 디게 묘하네.. */
+        }
+    </style>
+</head>
+<body>
+    <section id="sec2d">
+        <div id="div2d"></div>
+    </section>
+
+    <section id="sec3d">
+        <div class="div3d"></div>
+        <div class="div3d"></div>
+        <div class="div3d"></div>
+        <div class="div3d"></div>
+        <div class="div3d"></div>
+        <div class="div3d"></div>
+    </section>
+</body>
+</html>

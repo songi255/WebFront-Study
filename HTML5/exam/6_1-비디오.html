@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <!-- HTML5 전에는 별도 플러그인이 없으면 볼 수 없었따... -->
+    
+    <video poster="http://placehold.it/640x360" width="640" height="360" controls="controls">
+        <!-- 윈도우 기본내장은 wmv, 브라우저는 미지원함-->
+        <!-- mp4나 webm으로 변환 필요 -->
+        <!-- 기본적으로 mp4사용. 라이센스 등 문제가 생기면 source 사용할 것. -->
+        <source src="src/test.mp4" />
+        <source src="src/test.webm" />
+    </video>
+
+    <!-- 주요속성
+        src : 경로지정
+        poster : 썸네일
+        preload : 다 불러온 후 재생?
+        autoplay
+        loop
+        controls
+        width
+        highth
+    -->
+
+    <br />
+    <hr />
+    
+    <!-- video.js 플러그인 -->
+    <!-- 브라우저마다 video태그의 형태가 일관되지 않으므로 디자인에 문제. 이를 해결하는 플러그인. -->
+    <!-- http://videojs.com -->
+</body>
+</html>

@@ -1,0 +1,97 @@
+
+JavaScript는 Web환경, Node.js는 V8기반 런타임 환경.
+두 개의 공통 분모가 바로 ECMA SCRIPT(ES6)이다.
+
+이제는 크로스플랫폼을 위한 가장 중요한 언어로써 주목받고 있다.
+    - 모바일 하이브리드 앱 : PhoneGap, Ionic
+    - 서버 사이드 : node.js
+    - 데스크톱 : electron
+    - 머신러닝 : TensorFlow.js
+    - 로보틱스 : Johnny-Five
+
+
+JavaScript는 DOM, BOM, Canvas, XMLHTMLRequest, fetch,
+RequestAnimationFrame, SVG, WebStorage, WebComponent,
+WebWorker등의 호스트객체 지원
+
+명령형, 프로토타입기반 객체지향형(클래스 기반보다 효율적이면서 강력하다), 함수형 을 지원하는 멀티 패러다임 프로그래밍언어이다.
+
+Node.js는 서버모듈, 파일시스템, HTTP API 등 호스트 객체 제공하며
+    - React, Angular, Lodash 같은 framework, lib 도입시 필요
+    - Babel, Webpack, ESLint 등 여러 도구를 사용할 때 필요
+    - Node.js와 npm 이 둘다 필요
+        npm (node package manager) : JS패키지매니저.
+            - Node.js에서 사용가능한 모듈들을 패키지화해서 모아두는 저장소
+            - 패키지 설치 & 관리를 위한 CLI 제공
+                - 자신이 작성한 패키지 공개 / 재사용 가능
+    - 웹 개발 뿐이 아니고, 브라우저 이외의 환경에서도 작용할 수 있게 만든 것.
+    - SPA(Single Page App)에 적합함.
+        - 비동기 I/O 지원
+        - 단일스레드 이벤트루프 기반 동작. -> 요청처리성능이 좋음.
+        - SPA가 데이터 실시간 처리를 위해 I/O가 빈번한 환경이라서 적합함.
+    - CPU이용률 높으면 사용하지 말것을 권장.
+    - V8기반
+    
+Node.js 설치
+    - Node.js 설치 (npm도 같이 깔린다.)
+        - node -v / npm -v 로 설치확인
+        - REPL 실행 : node
+        - .js 실행 : node index.js (확장자 생략가능)
+        - 종료 : Ctrl + C 2번입력
+
+
+단축키
+    - Ctrl + ` 터미널 실행(node.js 실행가능)
+    - Ctrl + Alt + N : Code Runner 실행
+
+
+Ajax = asynchronous Js and XML = XMLHTMLRequest
+    - 서버와 브라우저가 비동기방식으로 데이터 교환하는것.
+
+jQuery : Dom 더 쉽게 제어
+V8 : 크롬이 탑재하고 있는 JS엔진
+    - 이로 인해 과거 서버에서 수행되던 로직들이 대거 클라이언트로 이동
+    - 이는 프론트엔드영역이 주목받는 계기로 작용함.
+프레임워크 등장 : Angular, React, Vue.js, Svelte
+
+ES6미지원 브라우저 -> Babel, Webpack등으로 호환시킨다.
+
+크롬
+    - Source : 로딩된 페이지 JS 디버깅 가능
+        - 줄번호 클릭하여 브레이크포인트 지정가능.
+        - 에러 발생시 브레이크 포인트 지정 후 재실행하면, Source 내에 js코드로 이동해서, 변수에 마우스를 올리는 것 만으로도 내부값을 확인할 수 있다.
+    - Application : 스토리지, 세션, 쿠키 확인 관리 가능
+    - Tools for Web Developers : 콘솔 사용 참고
+    - 개발자도구는 창 분리할 수 있으니, 더블모니터로 사용하자.
+
+npm(node package manager) : JS 패키지매니저
+
+
+    - Node.js에서 사용할 수 있는 모듈들을 패키지화해서 저장해놓은 저장소
+    - 패키지 설치 및 관리를 위한 CLI 제공
+    - 자신이 작성한 패키지 공개도 가능
+    - 필요한 패키지 검색하여 재사용도 가능.
+    - https://poiemaweb.com/nodejs-npm 참고해서 정리 ?!?!??!!?!?!?!?!?!?!?!?!?
+
+?!?!??!!?!?!?!?!?!?!?!?!? : 책 다시보고 정리하기!!
+
+VsCode
+    - Ctrl + ` : 내장터미널 실행
+    - 확장플러그인 추천
+        - live Server : 소스코드 바로열기(우측하단 Go live) + 변경사항 자동반영
+        - code Runner : 프로그래밍 언어 바로 실행가능
+            - Ctrl + Alt + N (즉시실행)
+            - 우클릭해도 run code 메뉴가 뜸
+            - 혹은 우측상단에 화살표 아이콘이 생겨서, 그걸 눌러도 됨.
+            - Node.js환경으로 실행되므로 Web API 사용시 브라우저로 킬것.
+        - Bracket Pair Colorizer : 대괄호 짝끼리 색깔입히기
+        - Code Spell Checker
+            
+!@!@!@단축키
+Ctrl + D : 동일단어 계속 선택
+div>div*6 같이 쓰고 tab 하면 자동완성됨
+예시 : ol>li*3
+Ctrl + P : 폴더검색
+Ctrl + Shift + F : 전체내용 검색
+Ctrl + Shift + E : 탐색기로 이동
+Ctrl + Shift + N : 탐색기에서 새 파일 생성

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <style>
+        /* 원래 HTML은 대학에서 원격논문제출, 확인 용도로 만들어졌다. 그래서 폰트관련 속성이 굉장히 많다. */
+        .a {
+            font-size: large; /* 참고로, h1은 기본 32px이고 p는 기본 16px이다. */
+        } 
+
+
+        /* 폰트 지정. 여러 단어로 이루어진 폰트는 ""로 묶어줘야 함. */
+        /* 사용자의 컴퓨터에는 특정 폰트가 없을 수 있기 때문에, 여러 폰트를 동시에 지정한다. 순차적으로 나올때까지 찾는다. */
+        /* 하지만 다국어 경우 폰트를 일일이 확인할 수 없기에, 가장 마지막에는 Serif(명조체) Sans-serif(고딕체), Mono space(고정폭 글꼴) 적용한다. */
+        /* 웹 브라우저에서 지정하는데, generic-family라고 한다. 예시로 chrome의 Serif는 Adobe Arabic의 궁서체를 출력한다. */
+        
+        /* 모서리에 돌기가 있는게 명조체 이고, 평평한게 고딕이다. */
+        .font_arial { font-family: Arial, Helvetica, sans-serif; } /* explorer에선 serif와 Sans-serif에 ""를 사용하면 안된다. */
+        .font_roman { font-family: 'Times New Roman', Times, serif; }
+        .font_italic { font-style: italic; } /* 기울기 조정 */
+        .font_bold { font-weight: bold; } /* 굵기. 일반은 400, bold는 700이다. 폰트가 지원하지 않으면 적용안된다. */
+        .font_big { font-size: 2em; }
+        
+        /* 아래는 font로 시작하지 않는 font 속성이다. */
+        .font_center { text-align: center; } /* 좌우정렬 */
+        .font_no_deco { text-decoration: none; } /* 밑줄, 윗줄, 삭선 등을 의미한다. */
+
+
+
+        .button {
+            width: 150px;
+            height: 70px;
+            background-color: #FF6A00;
+            border:  10px solid #FFFFFF;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px #A9A9A9;
+        }
+
+        .button > a {
+            display: block; /* CSS는 block형식태그의 수직정렬 속성이 없다. */
+            line-height: 70px; /* 글자높이지정. 현대 HTML은 문서보다는 어플형식으로 사용하므로, 높이지정보다, 글자 수직정렬에 사용함. */
+            /* 박스의 높이와 똑같은 값으로 지정해주니 중앙에 왔다. 자주 사용하니 기억해두자!! */
+        }
+
+        /* 역시 위의 모든 속성은 한번에 입력가능은 하다. */
+    </style>
+</head>
+<body>
+    <h1>Lorem ipsum</h1>
+    <p class="a font_center">Lorem ipsum</p>
+    <span class="a font_center">Lorem ipsum</span> <!-- span은 align이 적용되지 않았는데, inline형식이기 떄문에 당연하다. (너비가 존재하지 않고, 중앙개념이 없으니.) -->
+    
+
+    <div class="button">
+        <a href="#" class="font_arial font_big font_bold font_center font_no_deco">Click</a>
+    </div>
+</body>
+</html>

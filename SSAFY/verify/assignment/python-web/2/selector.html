@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        /* A. 자손 결합자와 자식 결합자의 차이는 무엇인가? */
+        div p{
+            /* 자손결합자는 div 하위 모든 영역에 적용된다. */
+            color: blue;
+        }
+        div > p {
+            /* 자식결합자는 바로 아래영역의 태그에만 적용이된다. 그 밑으로는 적용되지 않는다. */
+            color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>자식이자 자손. 먼저 작성된 자식결합자가 적용된다.</p><!-- css는 둘 다 적용되나, 더 나중에 작성된 자식결합자가 적용된다. -->
+        <p>자식이자 자손2</p>
+        <span>
+            <p>자손. 자식이 아니다.</p><!-- 더 하위 영역의 자손. -->
+        </span>
+    </div>
+</body>
+</html>

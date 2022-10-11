@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #141414;
+        }
+
+        .image {
+            width: 100px;
+            height: 60px;
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            border: 3px solid white;
+            box-sizing: border-box;
+            background: url('https://picsum.photos/id/237/100/60');
+            background-size: 100% 100%;
+        }
+
+        #viewport {
+            transform-style: preserve-3d;
+            -webkit-perspective: 2000px;
+            position: relative;
+            height: 100%;
+            transform: rotateX(-10deg);
+        }
+
+        #image_gallery {
+            width: 100px;
+            height: 60px;
+            transform-style: preserve-3d;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -50px;
+            margin-top: -30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="viewport">
+        <div id="image_gallery">
+
+        </div>
+    </div>
+    <script>
+        /* 원통생성 */
+        document.addEventListener("DOMContentLoaded", e => {
+            for (let i = 0; i < 200; i++){
+                let output = '';
+                output += `rotateY(${i * 20}deg) `;
+                output += `translateY(${i * 5}px) `;
+                output += `translateZ(310px) `;
+                let div = document.createElement("div");
+                div.classList.add('image');
+                div.style.width = 100;
+                div.style.height = 60;
+                div.style.transform = output;
+                document.querySelector("#image_gallery").appendChild(div);
+            }
+        });
+
+        let isMouseDown = false;
+        let originalPosition = {x: 0, y: 0};
+        let originalRotation = {x: 0, y: 0, z: 0};
+        let originalScale = 1.0;
+        let createGalleryPosition = function() {
+            let output = '';
+            output += `translateY(${originalPosition.y}px) `;
+            output += `rotateY(${originalRotation.y}deg) `;
+            return output;
+        }
+        let createViewportPosition = function() {
+            let output = '';
+            output += `rotateX(-10deg) `;
+            output += `scaleX(${originalScale}) `;
+            output += `scaleY(${originalScale}) `;
+            return output;
+        }
+        window.onmousedown = e => {
+            isMouseDown = true;
+            originalPosition.x = e.screenX;
+            e.preventDefault(); /* 디폴트 이벤트 제거 */
+        }
+        window.onmouseup = e => {
+            isMouseDown = false;
+            e.preventDefault();
+        }
+        window.onmousemove = e => {
+            if (isMouseDown) {
+                distance = e.screenX - originalPosition.x;
+                originalRotation.y += distance;
+                originalPosition.y += distance / 3;
+                document.querySelector("#image_gallery").style.transform = createGalleryPosition();
+                document.querySelector("#viewport").style.transform = createViewportPosition();
+                originalPosition.x = e.screenX;
+            }
+            e.preventDefault();
+        }
+        window.onmousewheel = e => {
+            let changeScale = originalScale + e.wheelDeltaY / 1000;
+            if (changeScale > 0){
+                originalScale = changeScale;
+                document.querySelector("#image_gallery").style.transform = createGalleryPosition();
+                document.querySelector("#viewport").style.transform = createViewportPosition();
+                //e.preventDefault();
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>

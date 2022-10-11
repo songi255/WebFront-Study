@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 
+        입력양식의 상태 선택
+        :checked - checkbox & radio
+        :focus
+        :enabled
+        :disabled
+
+        예제는 너무 쉬워서 패스. 대신 상태, 동위선택자 사용한  어려운 예제.
+     -->
+    <title>Document</title>
+    <style>
+        input[type=checkbox]:checked + div {
+            height: 0px;
+        }
+
+        div {
+            overflow: hidden;
+            width: 650px; height: 300px;
+
+            /* 걍 호환성 옵션 다 떄려박았네.*/
+            -ms-transform-duration: 1s;
+            -webkit-transition-duration: 1s;
+            -moz-transition-duration: 1s;
+            transition-duration: 1s;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" />
+    <div>
+        <h1>Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta animi perferendis a in iste obcaecati eligendi rerum! Officiis similique, in eum nisi laborum placeat harum sit, fugit iusto possimus officia!</p>
+    </div>
+</body>
+</html>

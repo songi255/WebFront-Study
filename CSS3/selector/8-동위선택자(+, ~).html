@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--
+        동위 관계에서 뒤에 위치한 태그 선택
+        선택자A + 선택자B : 선택자A 바로 뒤에 위치하는 선택자B
+        선택자A ~ 선택자B : 선택자A 뒤에 위치하는 선택자B
+        CSS 애니메이션으로 동적으로 움직이는 레이아웃 구성에 사용함
+    -->
+    <title>Document</title>
+    <style>
+        h1 + h2 { color: red; }
+
+        h1 ~ h2 { background-color: orange; }
+    </style>
+</head>
+<body>
+    <h1>Header - 1</h1>
+    <h2>Header - 2</h2>
+    <h2>Header - 2</h2>
+    <h2>Header - 2</h2>
+    <h2>Header - 2</h2>
+</body>
+</html>

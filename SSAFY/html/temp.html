@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <script>
+        class Element{
+            constructor(bgc, width, height, text){
+                this.backgroundColor = bgc;
+                this.width = width;
+                this.height = height;
+                this.text = text;
+
+                this.element = null;
+                this.init();
+            }
+
+            init(){
+                this.element = document.querySelector("div");
+                this.element.style.backgroundColor = this.backgroundColor;
+                this.element.style.width = this.width;
+                this.element.style.height = this.height;
+
+                document.querySelector('body').append(this.element);
+                this.clickEvent();
+            }
+            
+            clickEvent(){
+                this.element.addEventListener("click", ()=>{
+                    this.width += 50;
+                })
+            }
+        }
+        const red = new Element("red", '200px', '200px', "앙기모띠");   
+        const blue = new Element("blue", '200px', '200px', "앙기모띠");
+    </script>
+</body>
+</html>

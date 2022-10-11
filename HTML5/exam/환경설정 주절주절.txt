@@ -1,0 +1,21 @@
+settings.json에
+"emmet.syntaxProfiles": {
+   "html": "xhtml"
+}
+추가하면 xhtml스타일로 자동완성된다.
+
+유용한 플러그인들
+- live server
+- code runner
+- bracket pair
+- code spell
+
+shortcuts
+- Alt + Shift + ↑ 한줄복사
+- Shift + delete 한줄삭제
+- Ctrl + Alt + ↑ 멀티커서
+- Alt + 클릭 = 멀티커서
+- Ctrl + Shift + L 같은 내용 선택
+- Alt + L + O liveserver로 열기
+- Ctrl + Shift + [] 코드 접고 열기
+- Ctrl + ` 터미널 열기

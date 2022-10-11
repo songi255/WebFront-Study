@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <!-- 클래스선택자는 웹개발에서 가장 많이 사용하는 선택자. -->
+    <style>
+        .item { color: red; }
+        .header { background-color: blue; }
+
+        /* 태그선택자와 같이 사용하여 원하는것만 더 정확하게 선택할 수 있다. */
+        li.select { color: red; }
+
+        /* 여러 클래스를 동시에 가진 요소만 선택하기 */
+        h1.red.blue {} /* h1태그 중 red blue 둘다포함한 클래스를 가진 놈만 선택함. */
+
+    </style>
+</head>
+<body>
+    <h1 class="item header">Lorem ipsum</h1>
+
+    <hr />
+    
+    <h1 class="select">Lorem ipsum</h1>
+    <ul>
+        <li class="select">Lorem ipsum</li>
+        <li>Lorem ipsum</li>
+        <li>Lorem ipsum</li>
+        <li>Lorem ipsum</li>
+    </ul>
+
+</body>
+</html>

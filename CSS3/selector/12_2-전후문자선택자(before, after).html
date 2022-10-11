@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <style>
+        /* 
+            특정 태그의 전후 공간 선택. 정말 쓸 일이 없다. content속성과 함꼐 사용한다.
+            아래는 복잡한 속성을 같이 사용한 예제이다. data-속성에서 추가설명한다.
+        */
+        p { counter-increment: rint; }
+        p::before { content: counter(rint) "."; }
+        p::after { content: " - " attr(data-page) " page";}
+        p::first-letter { font-size: 3em; }
+    </style>
+</head>
+<body>
+    <h1>Lorem ipsum dolor sit amet</h1>
+    <!-- data-page는 사용자지정속성이다. -->
+    <p data-page="52">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ipsum, commodi rem molestiae nam expedita repudiandae obcaecati vitae velit laudantium ea maxime, delectus perspiciatis eius fugiat repellat asperiores reiciendis aperiam?</p>
+    <p data-page="273">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+</body>
+</html>

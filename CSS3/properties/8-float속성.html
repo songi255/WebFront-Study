@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <style>
+        /* float속성은 가장 많이 사용하는 속성이다. 부유하는 대상을 만들 때 사용한다.*/
+        img {
+            float: left; /* 이미지가 자리를 차지하며 글자와 어울리는 것을 볼 수 있다. 처음 float속성 개발했었을땐 img태그에 사용이 기본이었다.*/
+            /* 현대에는 레이아웃 만들 때 더 많이 사용한다. */
+        }
+
+        /* float를 이용한 수평정렬 */
+        .box {
+            float: right; /* 순서가 오른쪽부터 카운트되는 것을 볼 수 있다. */
+            width: 100px; height: 100px;
+            background-color: red;
+            margin: 10px; padding: 10px;
+        }
+
+
+        /* float 레이아웃 구성 공식 : 자손에 float 사용시 부모는 overflow: hidden 한다.*/
+        /* 이를 One True Layout 방식이라고 한다. */
+        body {
+            width: 960px;
+            margin: 0 auto; /* 자동 가운데정렬된다. */
+        }
+
+        #aside {
+            width: 200px;
+            float: left;
+        }
+
+        #section {
+            width: 760px;
+            float: left;
+        }
+
+        #wrap {
+            overflow: hidden; /* 해주지 않으면 footer가 이상한 위치에 붙는데, aside 와 section과 어울려서 부유하기 떄문이다. 이걸 막기위해 hidden 해준다.*/
+        }
+
+        /*
+        #footer {
+            clear: both; 마찬가지로 같은 효과를 낸다. 다만 overflow: hidden을 더 많이 사용한다.
+        }
+        */
+
+    </style>
+</head>
+<body>
+    <h1>Lorem ipsum dolor sit amet</h1>
+    <img src="../src/hanbit.jpg" alt="이미지없음" />
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.</p>
+    <p>Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget. Leo a diam sollicitudin tempor id. A lacus vestibulum sed arcu non odio euismod lacinia. In tellus integer feugiat scelerisque. Feugiat in fermentum posuere urna nec tincidunt praesent. Porttitor rhoncus dolor purus non enim praesent elementum facilisis. Nisi scelerisque eu ultrices vitae auctor eu augue ut lectus. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies. Arcu ac tortor dignissim convallis aenean et tortor at. Pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eros donec ac odio tempor orci dapibus ultrices. Elementum nibh tellus molestie nunc. Et magnis dis parturient montes nascetur. Est placerat in egestas erat imperdiet. Consequat interdum varius sit amet mattis vulputate enim.</p>
+
+    <hr />
+
+    <div class="box">1</div>
+    <div class="box">2</div>
+
+    <br /><br /><br /><br /><br /><br /><hr />
+
+    <div id="header"><h1>Header</h1></div>
+    <div id="navigation"><h1>Navigation</h1></div>
+    <div id="wrap">
+        <div id="aside">
+            <h1>Aside</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.</p>
+        </div>
+        <div id="section">
+            <h1>Section</h1>
+            <p>Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget. Leo a diam sollicitudin tempor id. A lacus vestibulum sed arcu non odio euismod lacinia. In tellus integer feugiat scelerisque. Feugiat in fermentum posuere urna nec tincidunt praesent. Porttitor rhoncus dolor purus non enim praesent elementum facilisis. Nisi scelerisque eu ultrices vitae auctor eu augue ut lectus. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies. Arcu ac tortor dignissim convallis aenean et tortor at. Pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eros donec ac odio tempor orci dapibus ultrices. Elementum nibh tellus molestie nunc. Et magnis dis parturient montes nascetur. Est placerat in egestas erat imperdiet. Consequat interdum varius sit amet mattis vulputate enim.</p>
+        </div>
+    </div> 
+    <div id="footer"><h1>Footer</h1></div>
+
+</body>
+</html>

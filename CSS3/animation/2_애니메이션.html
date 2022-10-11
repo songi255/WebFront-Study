@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { position: relative; }
+        #box {
+            position: absolute;
+            width: 200px; height: 200px;
+            border-radius: 100px;
+            text-align: center;
+            background: linear-gradient(#cb60b3 0%, grey 100%);
+
+            animation-name: rint; /* 아래에서 생성한 keyframe을 name으로 매칭한다. 아래 duration과 함께 필수코드이다.*/
+            animation-duration: 2s;
+            animation-timing-function: ease; /* timing func도 지정당연히 가능. 애초에 변형속성과 비슷하다. 나머지는 생략한다. */
+            animation-iteration-count: infinite;
+            animation-direction: alternate; /* direction은 반복형태를 정의한다. 예시로 이렇게 alt를 주면 from - to - from을 반복한다. */
+            animation-play-state: running; /* 중지, 재생 가능하다. hover같은데 넣어 줄 수 있는 것이다.!! 일반적으로 js로 조절한다. */
+
+            /* 물론 한번에 입력 가능하다. animation: name dur func delay iter dir 순.. 사용안할 속성은 none을 쓰면 된다. */
+        }
+
+        #box > h1 {
+            line-height: 200px;
+        }
+
+        /* keyframes rule 이라고 한다. 애니매이션 지정 형식이다. @keyframe 이름 형태로 입력한다. */
+        @keyframes rint {
+            from {
+                left: 0;
+                transform: rotate(0deg);
+            }
+            50% { /* 내부에는 이렇게 duration의 %단위로 애니메이션을 적용한다. */
+                left: 500px;
+            }
+            to { /* from과 to는 0%와 100%를 나타낸다!! */
+                left: 500px;
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1>Rotation</h1>
+    </div>
+</body>
+</html>

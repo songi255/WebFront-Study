@@ -1,0 +1,76 @@
+<!-- 현재 페이지가 HTML5 페이지임을 인식시킴. -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- ko, ja, zh, en, ru, de 등등... 동작에는 영향 없으나검색엔진에 알려줌> -->
+<head>
+    <!-- head에는 아래 6가지 태그만 넣을 수 있다. 그 외에는 body로 자동복사된다. -->
+    <title>HTML5 Basic Page</title> <!-- 제목. 검색엔진 도움주므로 권장 -->
+    <meta charset="UTF-8"> <!-- 추가정보 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script></script>
+    <link rel="stylesheet" href=""> <!-- 페이지에 다른파일추가 -->
+    <style></style> <!-- 스타일시트 추가 -->
+    <base href=""> <!-- 페이지 기본 경로 지정 -->
+</head>
+<body>
+    <h1>Heading1</h1>
+    <h2>Heading2</h2>
+    <h3>Heading3</h3> <!-- 일반적으로 여기까지 사용함 -->
+    <h4>Heading4</h4>
+    <h5>Heading5</h5>
+    <h6>Heading6</h6> <!-- 실제로 폰트는 CSS로 제어한다. 의미에 중점을 두자. -->
+
+    <br> <!-- 단독으로 쓰이는 태그. 줄바꿈 -->
+    <br /> <!-- XHTML% 스타일. 더 선호함 -->
+    
+    <hr /> <!-- 수평 separator-->
+
+    <h1>Lorem ipsum</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Nam commodo mi a lorem congue id rutrum leo venenatis.</p>
+    <!-- http://lipsum.com 에서 예문생성 쉽게 할 수 있어, 디자인에 많이 사용 -->
+    
+    <a href="http://hanbit.co.kr">Hanbit</a><br /> <!-- 앵커 태그. HTML의 핵심 -->
+    <a href="http://github.com/">Github</a><br />
+    <a href="#"></a> <!-- 빈링크. -->
+    <!-- a를 이용한 페이지 내부 이동 -->
+    <a href="#alpha">Move to Alpha</a>
+    <a href="#beta">Move to Beta</a>
+    <a href="#gamma">Move to Gamma</a>
+    <hr />
+    <h1 id="alpha">Alpha</h1> <!-- id를 꼭 지정해줘야 한다. -->
+    <h1 id="beta">Beta</h1>
+    <h1 id="gamma">Gamma</h1>
+
+    <!-- 글자 형태 -->
+    <hr />
+    <h1><b>굵은 글자. b</b></h1>
+    <h1><i>기울어진 글자. i</i></h1>
+    <h1><small>작은글자. small</small></h1>
+    <h1><sub>아래에 붙는 글자. sub</sub></h1>
+    <h1><sup>위에 붙는 글자. sup</sup></h1>
+    <h1><ins>밑줄. ins</ins></h1>
+    <h1><del>취소선. del</del></h1>
+    <hr />
+    <b>굵은 글자. b</b><br />
+    <i>기울어진 글자. i</i><br />
+    <small>작은글자. small</small><br />
+    <sub>아래에 붙는 글자. sub</sub><br />
+    <sup>위에 붙는 글자. sup</sup><br />
+    <ins>밑줄. ins</ins><br />
+    <del>취소선. del</del><br />
+    <!-- 과거에는 많이 사용했으나, 요즘에는 css로 통일함.-->
+
+    <!-- 루비문자 -->
+    <hr />
+    <ruby> <!-- 일본어에 많이 쓰임. 글자위에 쓰인다. -->
+        <span>大韓民國</span> <!-- 주요 문자 -->
+        <rp>(</rp> <!-- ruby parentheses -->
+        <rt>대한민국</rt> <!-- 위 첨자 ruby top-->
+        <rp>)</rp> <!-- 미지원시 출력되는 문자 -->
+    </ruby>
+    <!-- 미지원문자도 유연하게 출력하는것을 알 수 있다. -->
+
+</body>
+</html>

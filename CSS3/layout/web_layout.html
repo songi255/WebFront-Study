@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 시간이 변화해도 현대의 모든 웹페이지는 고정적인 영역으로 분리된다. -->
+    <!-- pinterest 같은 타일형태 웹페이지는 Js와 Jquery 공부 후 Masonry 라이브러리를 공부하면 된다. -->
+    
+    <!-- 레이아웃 작성 절차
+        1. 구상
+        2. 구성영역 분리 (Header, Navigation, Section, Aside, Footer 등..)
+        3. 행단위 분리 ( 가로선 그을 수 있는 영역에 분리하면 된다.)
+        4. 내부요소 분리 (예로, Section과 Aside가 같은 행으로 분리된 후, 이 둘을 분리하는 것.)
+     -->
+
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap" rel="stylesheet">
+    
+    <!-- HTML5 Shiv 플러그인 사용시, 구버전 explorer에서도 HTML5 인식가능하다.
+    그러나, CSS3 선택자는 사용할 수 없고, JS를 사용해야 한다. -->
+
+    <!-- 초기화 -->
+    <style>
+        /* 모든 html의 첫번쨰 스타일시트는 초기화코드로 시작한다.
+            모든 브라우저에서 동일 출력결과 만드는데 사용한다.
+            대규모 웹사이트 제작에는 이것보다 더 많은 초기화가 필요.
+            전세계적으로 다음 초기화코드 많이 사용한다.
+                - Eric Meyer's Reset CSS : https://meyerweb.com/eric/tools/css/reset/
+                - HTML5 Doctor Reset stylesheet : http://html5doctor.com/html-5-reset-stylesheet/
+                - 전부 비슷비슷하니 아무거나 사용하면 된다.
+            
+        */
+        
+        * { margin: 0; padding:0; }
+        body { font-family: sans-serif; }
+        li { list-style: none; }
+        a { text-decoration: none; }
+        img { border: 0; } /* img에 링크 넣으면 링크표시가 테두리로 생성되는데 그걸 없애는 것 */
+    </style>
+
+     <!-- 헤더 -->
+    <style>
+        #main_header {
+            /* 중앙정렬 */
+            width: 960px; margin: 0 auto;
+
+            /* 절대좌표 : 자손 position이 absolute 라면 부모 height 설정( 자리차지하게하기 위함 ) 후 position에 relative적용. */
+            height: 160px;
+            position: relative;            
+        }
+
+        #main_header > #title {
+            position: absolute;
+            left: 20px; top: 30px;
+        }
+
+        #main_header > #main_gnb {
+            position: absolute;
+            right: 0; top: 0;
+        }
+
+        #main_header > #main_lnb {
+            position: absolute;
+            right: 0; bottom: 10px;
+        }
+
+    </style>
+     
+     <!-- 타이틀 -->
+    <style>
+        /* 웹폰트 : 접속하면 폰트 자동으로 내려받아 사용할 수 있게 하는 기능.
+            대부분 유료이나, 구글폰트는 무료! select item 하여 link를 붙이면 된다.
+            explorer8 이하에서는 로컬실행시 보안문제 발생, 웹폰트 적용되지 않아 서버에서 실행해야 적용된다. ??? */
+        #title {
+            font-family: 'Rubik Glitch', cursive;
+        }
+    </style>
+     
+     <!-- 메뉴1 -->
+    <style>
+        /* 수평정렬 : 자손에 float 시 부모 overflow에 hidden */
+        #main_gnb > ul { overflow: hidden; }
+        #main_gnb > ul > li { float: left; }
+        #main_gnb > ul > li > a { /* li가 아닌 a에 padding, display 지정한 이유는, li적용시, a의 영역은 딱 글자크기로 끝나기 때문. 버튼으로써 빈공간을 사용하려면 이렇게 해야한다. 또 테두리도 분리됨 */
+            display: block; /* block 지정 안하니, 아래위로는 테두리가 안생긴다.. 높이개념이 없어서그런듯하다. */
+            padding: 2px 10px; /* block이기에 4방향으로 지정가능하다. */
+            border: 1px solid black;
+        }
+        #main_gnb > ul > li > a:hover {
+            background: black;
+            color: white;
+        }
+        #main_gnb > ul > li:first-child > a { border-radius: 10px 0 0 10px; } /* 테두리를 container에 지정하는게 아니라 a에 각각 지정하네. 당연한게, 각각 작동하니까.. */
+        #main_gnb > ul > li:last-child > a { border-radius: 0 10px 10px 0; }
+        </style>
+    
+    <!-- 메뉴2 -->
+    <style>
+        #main_lnb > ul { overflow: hidden; }
+        #main_lnb > ul > li { float: left; }
+        #main_lnb > ul > li > a {
+            display: block;
+            padding: 10px 20px;
+            border: 1px solid black;
+        }
+        #main_lnb > ul > li > a:hover {
+            background: black;
+            color: white;
+        }
+        #main_lnb > ul > li:first-child > a { border-radius: 10px 0 0 10px; }
+        #main_lnb > ul > li:last-child > a { border-radius: 0 10px 10px 0; }
+    </style>
+    
+    <!-- 콘텐츠 -->
+    <style>
+        #content {
+            width: 960px; margin: auto; /* 중앙정렬 */
+            overflow: hidden; /* 수평 레이아웃 구성 */
+        }
+
+        #content > #main_section {
+            width: 750px;
+            float: left;
+        }
+        #content > #main_aside {
+            width: 200px;
+            float: right;
+        }
+
+
+    </style>
+    
+    <!-- 본문 -->
+    <style>
+        #main_section > article.main_article {
+            margin-bottom: 10px;
+            padding: 20px;
+            border: 1px solid black;
+        }
+    </style>
+    
+    <!-- 사이드 -->
+    <style>
+        /* 탭바는 사실 JS로 생성하는것이 일반적. 여기선 그냥 CSS3으로 적용 */
+        
+        /* 첫번쨰 탭 */
+        input:nth-of-type(1) { display: none; } /* input은 숨긴다. ( 연결된 label을 클릭해도 되기때문 ) */
+        input:nth-of-type(1) ~ div:nth-of-type(1) { display: none; } /* input 뒤의 div는 기본적으로 숨긴다. */
+        input:nth-of-type(1):checked ~ div:nth-of-type(1) { display: block; } /* 그러나 check된 input 뒤의 div는 드러낸다. */
+        
+        /* 두번쨰 탭 */
+        input:nth-of-type(2) { display: none; }
+        input:nth-of-type(2) ~ div:nth-of-type(2) { display: none; }
+        input:nth-of-type(2):checked ~ div:nth-of-type(2) { display: block; }
+        
+        /* 탭모양 구성 */
+        section.buttons { overflow: hidden; }
+        section.buttons > label {
+            /* 수평정렬 */
+            display: block; float: left;
+
+            /* 크기 및 글자위치 지정 */
+            width: 100px; height: 30px;
+            line-height: 30px;
+            text-align: center;
+        
+            /* 테두리 지정 */
+            box-sizing: border-box;
+            border: 1px solid black;
+
+            /* 색상 지정 */
+            background: black;
+            color: white;
+        }
+        input:nth-of-type(1):checked ~ section.buttons > label:nth-of-type(1) { background: white; color: black; }
+        input:nth-of-type(2):checked ~ section.buttons > label:nth-of-type(2) { background: white; color: black; }
+
+
+
+    </style>
+    
+    <!-- 목록 -->
+    <style>
+        .item {
+            overflow: hidden;
+            padding: 10px;
+            border: 1px solid black;
+            border-top: none;
+        }
+
+        .thumbnail {
+            float: left;
+        }
+
+        .description {
+            float: right;
+            margin-left: 10px;
+        }
+
+        .description > strong { /* 글자가 너무 길어서 삐져나갈때 : 아래처럼 한다. */
+            display: block;
+            width: 120px;
+            
+            /* 글자 생략 시 아래 3개가 몰려다닌다. */
+            white-space: nowrap; /* 글자가 넘쳐도 부모가 wrap하려고 늘어나지 않는다. */
+            overflow: hidden; /* 넘치는 부분 없앤다 */
+            text-overflow: ellipsis; /* 가려진 부분을 ...으로 표시한다. */
+        }
+
+    </style>
+    
+    <!-- 푸터 -->
+    <style>
+        #main_footer {
+            /* 중앙정렬 */
+            width: 960px; margin: 0 auto;
+            margin-bottom: 10px;
+
+            /* 테두리 */
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid black;
+
+            /* 글자정렬 */
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header id="main_header">
+        <div id="title">
+            <h1>Rint Development</h1>
+            <h2>HTML5 + CSS3 Basic</h2>
+        </div>
+        <nav id="main_gnb"> <!-- gnb = global navigation bar / lnb = local navigation bar -->
+            <ul>
+                <li><a href="#">Web</a></li>
+                <li><a href="#">Mobile</a></li>
+                <li><a href="#">Game</a></li>
+                <li><a href="#">Simulation</a></li>
+                <li><a href="#">Data</a></li>
+            </ul>
+        </nav>
+        <nav id="main_lnb">
+            <ul>
+                <li><a href="#">HTML5</a></li>
+                <li><a href="#">CSS3</a></li>
+                <li><a href="#">JavaScript</a></li>
+                <li><a href="#">jQuery</a></li>
+                <li><a href="#">Node.js</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="content">
+        <section id="main_section">
+            <article class="main_article">
+                <h1>Main Section</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </article>
+            <article class="main_article">
+                <h1>Main Section</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </article>
+            <article class="main_article">
+                <h1>Main Section</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </article>
+        </section>
+        <aside id="main_aside">
+            <input id="first" type="radio" name="tab" checked="checked" />
+            <input id="second" type="radio" name="tab" />
+            <section class="buttons">
+                <label for="first">First</label>
+                <label for="second">Second</label>
+            </section>
+            
+            <div class="tab_item">
+                <ul>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>HTML5 Canvas</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>HTML5 Audio</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>HTML5 Video</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>HTML5 Semantic Web</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab_item">
+                <ul>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>CSS3 Transition</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>CSS3 Animation</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>CSS3 Border</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/45x45" alt="placehold.it 오류!" />
+                            </div>
+                            <div class="description">
+                                <strong>CSS3 Box</strong>
+                                <p>2019-03-15</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer id="main_footer">
+        <h3>HTML5 + CSS3 Basic</h3>
+        <address>Website Layout Basic</address>
+    </footer>
+</body>
+</html>

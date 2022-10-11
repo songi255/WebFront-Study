@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <!--
+        아이디선택자와 클래스선택자는 CSS에서 가장 많이 사용한다. 레이아웃, 디자인 등..
+    -->
+
+    <style>
+        /* id선택자
+            id속성은 웹페이지 내부에서 중복될 수 없다!
+                -> 특정한 하나의 태그를 선택할 때 사용
+                -> 일반적으로 아래코드처럼 공간분할태그에 적용하여 레이아웃 구성
+        */
+        #header {
+            width: 800px; margin: 0 auto;
+            background: red;
+        }
+
+        /*overflow : 박스안에 내용이 더 길 때 어떻게 보일 지 선택하는 속성*/
+        #wrap {
+            width: 800px; margin: 0 auto;
+            overflow: hidden;
+        }
+
+        #aside {
+            width: 200px; float: left;
+            background: blue;
+        }
+
+        #content {
+            width: 600px; float: left;
+            background: green;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Header</h1>
+    </div>
+    <div id="wrap">
+        <div id="aside">
+            <h1>Aside</h1>
+        </div>
+        <div id="content">
+            <h1>Content</h1>
+        </div>
+    </div>
+</body>
+</html>

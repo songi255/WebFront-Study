@@ -1,0 +1,100 @@
+// 설치 : npm i sass -g
+// 실행 : style.scss 를 작성 후 sass style.scss style.css 라고 하면 변환된다.
+// watch : --watch 옵션을 같이 사용하면 자동 빌드된다.
+//   - directory에 적용 시 :를 사용한다. sass --watch app/sass:public/stylesheets
+
+@use 'partial'; //모듈을 include 했다. 이러면 해당 이름을 네임스페이쓰로서 변수, 함수, mixins 등 까지 가져 와 사용할 수 있다. (맨 첫줄에 정의되어야 한다.)
+@use "sass:math";
+
+//변수. $로 사용한다. 단순 치환이라생각하면 된다.
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+// 중첩 -> 계층구조를 더 확실히 볼 수 있다.
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+
+//mixin. css 뭉치이다.
+
+@mixin theme($theme: DarkGray) { // 기본값 부여가능
+  background: $theme;
+  box-shadow: 0 0 1px rgba($theme, .25);
+  color: #fff;
+}
+
+.info {
+  @include theme;
+}
+.alert {
+  @include theme($theme: DarkRed);
+}
+.success {
+  @include theme($theme: DarkGreen);
+}
+
+// 확장/상속
+/* This CSS will print because %message-shared is extended. */
+%message-shared { // 이렇게 확장할 뭉치를 만든다.
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+// This CSS won't print because %equal-heights is never extended.
+%equal-heights {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.message {
+  @extend %message-shared; // 이 부분에 삽입된다.
+}
+
+.success {
+  @extend %message-shared;
+  border-color: green;
+}
+
+.error {
+  @extend %message-shared;
+  border-color: red;
+}
+
+.warning {
+  @extend %message-shared;
+  border-color: yellow;
+}
+
+// 연산
+//@use "sass:math"; 맨 윗줄로 옮겼다.
+
+.container {
+  display: flex;
+}
+
+article[role="main"] {
+  width: math.div(600px, 960px) * 100%; // 그 div 태그가 아니고 divide 함수이다. 그니까.. px단위를 쉽게 %로 바꿀 수 있다.
+}
+
+aside[role="complementary"] {
+  width: math.div(300px, 960px) * 100%;
+  margin-left: auto;
+}

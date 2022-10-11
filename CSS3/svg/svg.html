@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+  <style>
+    body{
+      width: 960px;
+      margin: 0 auto;
+    }
+
+    #main_section{overflow: hidden}
+    #main_article{width: 460px; float: left;}
+    #map_image{width: 500px; float: right;}
+    figure {margin: 0; padding: 0;}
+  </style>
+</head>
+<body>
+  <!-- svg는 벡터이미지이다. 일러스트같은 프로그램으로 svg태그 추출 가능하니
+    관련 태그를 모두 외울 필요는 없다.
+  -->
+  
+  <svg 
+    xmlns="http://www.w3.org/2008/svg" version="1.2" 
+    width="700" height="500"
+  ><!-- width, height는 반드시 써야 한다. -->
+  <!-- xmlns와 version으로 어떤 표준을 따르고 있는지 써준다. -->
+    <rect width="700" height="300" fill="red"/>
+    <circle cx="350" cy="150" r="100" fill="orange" />
+  </svg>
+  
+  <div id="canvas"></div>
+  
+  <!-- 라파엘 이라는 라이브러리를 이용하여 JS로 쉽게 생성할 수 있다. -->
+  <!-- https://dmitrybaranovskiy.github.io/raphael/  -->
+  <script src="raphael.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      let canvas = document.getElementById('canvas');
+      let paper = Raphael(canvas, 700, 400); // svg태그를 놓을 컨테이너를 지정한다.
+
+      let rect = paper.rect(0, 0, 700, 300);
+      let circle = paper.circle(350, 150, 100);
+
+      rect.attr('fill', 'red'); // 속성지정
+
+      circle.attr('stroke', 'white');
+      circle.attr('fill', 'orange');
+
+      circle.mousedown(()=>{
+        //이렇게 svg요소에 바로 이벤트를 연결할 수 있다.
+      })
+    });
+  </script>
+
+  <!-- 이제 svg로 지도를 만들어보자. 일러스트에서 변환한 svg파일이 있다. -->
+  <!-- svg는 json으로 변환하면 JS에서 쉽게 활용할 수 있따. -->
+  <!-- 불필요한 부분 제거하고 XML to JSON 플러그인 사용하면 된다. -->
+  <!-- 근데 파일형식 구조를 정확히 알아야 하므로 일단은 스킵한다. https://download.hanbit.co.kr/exam/2161/raphaelhelper.html -->
+  <header id="main_header">
+    <h1>Korea Map Path Data</h1>
+  </header>
+  <section id="main_section">
+    <article id="main_article">
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus quisquam enim accusamus omnis similique repudiandae, esse error consectetur, labore ex autem modi cum? Quisquam a, vero ab id excepturi accusantium!</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus quisquam enim accusamus omnis similique repudiandae, esse error consectetur, labore ex autem modi cum? Quisquam a, vero ab id excepturi accusantium!</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus quisquam enim accusamus omnis similique repudiandae, esse error consectetur, labore ex autem modi cum? Quisquam a, vero ab id excepturi accusantium!</p>
+    </article>
+    <figure id="map_image">
+
+    </figure>
+  </section>
+
+  <script src="KoreaMapPathData.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", ()=>{
+      let canvas = document.getElementById('map_image');
+      let paper = Raphael(canvas, 500, 716);
+
+      [...koreaMapPathData].map((e, i) => {
+        // 새그먼트들로 나눠져있네...
+        let path = paper.path(e['d']); // path를 가져옴. 위치인가..? 먼가 있네
+        console.log(e['d']);
+        path.attr('fill', e['fill']);
+        path.attr('stroke', e['stroke']);
+
+        // 이렇게 새그먼트별로 나눠져 있으니.. 통계자료라던가.. 그런거에 SVG를 쓰는 일이 많아졌다.
+        
+      });
+      
+    });
+  </script>
+
+
+</body>
+</html>

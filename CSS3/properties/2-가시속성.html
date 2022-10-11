@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <!-- 가시속성 -->
+    <!-- 태그가 보이는 방식을 지정. -->
+    
+    <!-- display속성은 많지만 모든 속성을 지원하는 브라우저가 없다. -->
+    <!-- 따라서 자주 쓰는 아래 속성만 살펴보자. -->
+    <!-- 
+        none : 보이지 않음
+        block
+        inline
+        inline-block
+     -->
+    <style>
+        body > span { background-color: orange; }
+        
+        #box1 { display: none; }
+        #box2 { display: block; }
+        #box3 { display: inline; }
+        #box4 { display: inline-block; }
+
+        #box5 { visibility: hidden; } /* 보이지 않게 한다. diplay: none과의 차이는, 보다시피 공간을 차지한다! 보이지만 않을 뿐이다. */
+        #box6 { visibility: visible; opacity: 0.2; } /* opacity는 투명도 설정이다. */
+        #box7 { visibility: collapse; } /* "table 태그"를 보이지 않게 한다. explorer, firefox에서만 작동한다. none처럼 영역이 없어진다.*/
+        /* 근데 p도 없어지네...? */
+
+
+        div{
+            background-color: red;
+            width: 300px;
+            height: 50px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <span>None</span>
+    <div id="box1">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>None</span>
+
+    <hr />
+    
+    <span>Block</span>
+    <div id="box2">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>Block</span>
+
+    <hr />
+    
+    <!-- width, height가 지정되지 않음. margin은 좌우로만 지정됨 -->
+    <span>Inline</span>
+    <div id="box3">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>Inline</span>
+
+    <hr />
+
+    <!-- inline과의 차이는, width, height, margin 지정 가능하다. -->
+    <span>inline-block</span>
+    <div id="box4">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>inline-block</span>
+
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    
+    <span>Dummy</span>
+    <div id="box5">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>Dummy<span>
+
+    <hr />
+
+    <span>Dummy</span>
+    <div id="box6">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>Dummy<span>
+
+    <hr />
+
+    <span>Dummy</span>
+    <div id="box7">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    </div>
+    <span>Dummy<span>
+
+    <hr />
+    
+</body>
+</html>

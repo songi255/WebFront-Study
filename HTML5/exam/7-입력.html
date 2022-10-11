@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>입력</title>
+</head>
+<body>
+    <!-- action위치에 method방식으로 전달 -->
+    <form action="" method="post">
+        <p>post방식</p>
+        <input type="text" name="search" />
+        <input type="submit" />
+    </form>
+    <hr />
+    <form action="" method="get">
+        <p>get방식</p>
+        <input type="text" value="value태그에 입력한 값" name="search" />
+        <input type="submit" />
+    </form>
+    <!-- get방식은 주소창에 쿼리스트링이 남는다. 주소에 넣으므로 크기한정. -->
+    <!-- http://localhost:포트번호/폴더이름/파일이름?search=쿼리 -->
+
+    <!-- 그 외 태그들(생략) 개발시에 그냥 그떄그때보자 -->
+    <form action="">
+        <label for="pw">비밀번호</label>
+        <!-- 어떤태그를 설명하는지 표시해야 함(id)  -->
+        <!-- 이렇게 하면 label클릭시 자동으로 대상에게 focus이동! -->
+        <input type="password" id="pw"/>
+        <input type="range" />
+        <input type="reset" />
+        <input type="week" />
+        <input type="color" />
+        <input type="datetime-local" />
+        <input type="datetime" />
+        <input type="search" /><!-- 검색어 입력양식 -->
+    </form>
+
+    <!-- 일반적으로 input은 form안에 있어야 하나, Ajax 발달로 인해 지키지 않는 경우가 늘고 있음 -->
+
+    <hr />
+
+    <!-- input이 아닌 입력양식들 -->
+
+    
+    <form>
+        <textarea cols="30" rows="2">
+            TextArea Text
+            TextArea Text 
+        </textarea>
+    </form>
+    <!-- 잘못된 예제. tab도 반영된다. 지저분해보이더라도 아래처럼하는게 맞다.-->
+    <form>
+        <textarea cols="30" rows="2">TextArea Text
+TextArea Text</textarea>
+    </form>
+
+    <hr />
+
+    <!-- select는 폰에서는 어느정도 이쁘나 데스크톱에서는 이쁘지 않아 잘 사용하지 않음 -->
+    <select multiple="multiple">
+        <optgroup label="HTML5">
+            <option>Multimedia Tag</option>
+            <option>Connectivity</option>
+            <option >Device Access</option>
+        </optgroup>
+        <optgroup label="CSS3">
+            <option>Animation</option>
+            <option>3D Transform</option>
+        </optgroup>
+    </select>
+    <!-- 걍 최근에는 select잘 사용안함. 어울리게 만들기 어려워서... JS로 만들어버림 -->
+
+    <hr />
+
+    <!-- 입력양식을 설명하는 태그 -->
+    <form>
+        <fieldset>
+            <legend>입력양식</legend> <!-- legend는 fieldset 내부에서만 사용가능하다. -->
+            <table>
+                <tr>
+                    <td><label for="name">이름</label></td>
+                    <td><input id="name" type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label for="mail">이메일</label></td>
+                    <td><input id="mail" type="email" /></td>
+                </tr>
+            </table>
+            <input type="submit"/>
+        </fieldset>
+    </form>
+    
+</body>
+</html>

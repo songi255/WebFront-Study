@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 원래 float는 이미지를 띄우기 위한 속성인데, 레이아웃에 사용되고있었다. 그래서 처음 보면 납득하기 힘들고 활용방법을 알기 힘들다. -->
+  <!-- 그래서 flex, grid가 나왔다. -->
+  <!-- grid 레이아웃 : display:grid로 적용. -->
+  <title>Document</title>
+  <style>
+    .container {
+      display: grid;
+      /* 그리드 나누기 */
+      grid-template-columns: 200px 200px; /* ColumnWidth를 적용하는 코드. 200px 2개로 나눴다. */
+      /* px 말고 fr도 있다. 비율을 정수로 나타낸 것이다. */
+      grid-template-columns: 2fr 1fr;
+      /* 물론 섞어써서 일부는 px로 크기를 고정할 수 있다. */
+      grid-template-rows: 1fr 2fr; /* row도 있다! */
+    }
+
+    [class*=cell] {
+      box-sizing: border-box;
+      border: 5px solid black;
+      border-radius: 10px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cell-a">cell a</div>
+    <div class="cell-b">cell b</div>
+    <div class="cell-c">cell c</div>
+    <div class="cell-d">cell d</div>
+  </div>
+</body>
+</html>

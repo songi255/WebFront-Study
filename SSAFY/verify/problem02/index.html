@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Problem 02</title>
+    <style>
+        header{
+            border: 1px solid gray;
+            background-color: lightgray;
+            height: 50px;
+            text-align: center;
+        }
+        header > h2{
+            margin: 10px;
+        }
+        
+        .title-container > h2{
+            position: relative;
+        }
+        .menu-logo{
+            width: 40px;
+            height: 40px;
+
+            background-color: black;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            
+            position: absolute;
+            left: -50px;
+            top: -3px;
+        }
+        .menu-logo > img{
+            width: 30px;
+            height: 30px;
+        }
+        .title-container{
+            display: flex;
+            width: 600px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+        
+        main{
+            border: 1px solid gray;
+            
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        section{
+            width: 600px;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .menu-container{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .menu-container > img{
+            width: 200px;
+            height: 150px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .menu-description{
+            width: 400px;
+            height: 150px;
+            border: 1px solid gray;
+
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .menu-name{
+            width: 380px;
+            height: 40px;
+            margin: 10px;
+            
+            text-align: center;
+            color: white;
+            background-color: slateblue;
+        }
+        .menu-name > h2{
+            margin-top: 0px;
+        }
+        .menu-detail{
+            height: 90px;
+            text-align: center;
+        }
+        .menu-detail > h2:nth-child(1){
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        .menu-detail > h2:nth-child(2){
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>KFC World</h2>
+    </header>
+    <main>
+        <section>
+            <div class="title-container">
+                <h2>
+                    <span>메뉴판</span>
+                    <div class="menu-logo">
+                        <img src="./images/hamburger-gf8f038573_1280.png" alt="메뉴 로고" />
+                    </div>
+                </h2>
+            </div>
+            <div class="menu-container">
+                <img src="./images/hamburger-g5129a0853_1920.jpg" alt="메뉴 이미지" />
+                <div class="menu-description">
+                    <div class="menu-name">
+                        <h2>Fire Burger</h2>
+                    </div>
+                    <div class="menu-detail">
+                        <h2>맵지 않습니다.</h2>
+                        <h2>다만 뜨거운 불타는 버거</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-container">
+                <div class="menu-description">
+                    <div class="menu-name">
+                        <h2>Degda Burger</h2>
+                    </div>
+                    <div class="menu-detail">
+                        <h2>하나의 가격으로</h2>
+                        <h2>3개의 버거를 먹는 재미</h2>
+                    </div>
+                </div>
+                <img src="./images/burger-g4734d81ea_1920.jpg" alt="메뉴 이미지" />
+            </div>
+        </section>
+    </main>
+</body>
+</html>

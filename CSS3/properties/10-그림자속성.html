@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <style>
+        /* [오른쪽] [아래] [흐림도] ([그림자 안쪽 생성여부 (inset)]) [색상] */
+        h1 {
+            text-shadow: 5px 5px 5px black, 10px 10px 20px orange; /* 이렇게 여러개 중첩그림자도 가능하다. */
+        }
+
+        div {
+            border: 3px solid black;
+            box-shadow: 10px 10px 30px black;
+            /* text-shadow: 5px 5px 5px black; 이렇게 부모 태그에서 글자그림자 지정도 가능하다. */
+        }
+
+        /* https://css3generator.com/ 에서 쉽게 생성하자. */
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Lorem ipsum dolor amet</h1>
+    </div>
+    
+</body>
+</html>

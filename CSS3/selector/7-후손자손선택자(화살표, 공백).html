@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 
+        후손 : 아래의 모든. 선택자A 선택자B : 선택자A밑에있는 모든 선택자B
+        자손 : 바로아래의. 선택자A > 선택자B : 선택자A 바로 아래있는 선택자B들만.
+        table 태그는 자손선택자 비추천. tbody 자동 삽입 등 자손이 꼬일 수 있기 떄문..
+     -->
+    <title>Document</title>
+    <style>
+        /* 자손 선택자 */
+        #header > h1 { color: red; }
+
+        /* 후손선택자 */
+        #section h1 { color: orange; }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1 class="title">Lorem ipsum</h1>
+        <div id="nav">
+            <h1>Navigation</h1>
+        </div>
+    </div>
+    <div id="section">
+        <h1 class="title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique nostrum provident aperiam tempora ex dolore veniam et? Blanditiis voluptates ut consequatur nam delectus, esse alias hic nihil error temporibus expedita!</p>
+    </div>
+</body>
+</html>

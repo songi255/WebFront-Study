@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--
+        a태그에 적용하는 선택자. (링크가 있는지? 다녀온적 있는지?)
+        역시 별로 쓸 일이 없다.
+    -->
+    <title>Document</title>
+    <style>
+        a { text-decoration: none; }
+        a:visited { color: red; }
+        a:link::after { content: ' - ' attr(href);}
+    </style>
+</head>
+<body>
+    <h1><a>Nothing</a></h1>
+    <h1><a href="http://hanbit.co.kr">Hanbit Media</a></h1>
+    <h1><a href="http://github.com">Github</a></h1>
+</body>
+</html>

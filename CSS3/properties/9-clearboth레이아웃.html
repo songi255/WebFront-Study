@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <style>
+        /* overflow: hidden 말고 사용할 수 있는 clear: both 레이아웃 구성이다. */
+        /* 특징은, aside와 section을 wrap으로 감싸주지 않았다. */
+        /* float로 일그러진 레이아웃을 초기화할때 사용한다. 즉, float 적용대상들 뒤에만 적어주면 된다. (가로로 자를 부분에 넣어준다. 자세한건 아래에..) */
+        
+        body {
+            width: 960px;
+            margin: 0 auto;
+        }
+        
+        #aside {
+            float: left;
+            width: 260px;
+        }
+
+        #section {
+            float: right;
+            width: 700px;
+        }
+
+        
+        .clear {
+            clear: both;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header"><h1>Header</h1></div>
+    <div id="navigation"><h1>Navigation</h1></div>
+    
+    <div class="clear"></div> <!-- 굳이 넣을필요 없음 -->
+
+    <div id="aside">
+        <h1>Aside</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.</p>
+    </div>
+    <div id="section">
+        <h1>Section</h1>
+        <p>Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget. Leo a diam sollicitudin tempor id. A lacus vestibulum sed arcu non odio euismod lacinia. In tellus integer feugiat scelerisque. Feugiat in fermentum posuere urna nec tincidunt praesent. Porttitor rhoncus dolor purus non enim praesent elementum facilisis. Nisi scelerisque eu ultrices vitae auctor eu augue ut lectus. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies. Arcu ac tortor dignissim convallis aenean et tortor at. Pretium viverra suspendisse potenti nullam ac tortor vitae purus. Eros donec ac odio tempor orci dapibus ultrices. Elementum nibh tellus molestie nunc. Et magnis dis parturient montes nascetur. Est placerat in egestas erat imperdiet. Consequat interdum varius sit amet mattis vulputate enim.</p>
+    </div>
+
+    <div class="clear"></div> <!-- 여기에 넣어야 함. footer와 합쳐졌었으니깐. -->
+
+    <div id="footer"><h1>Footer</h1></div>
+
+    <div class="clear"></div> <!-- 굳이 넣을필요 없음 -->
+
+</body>
+</html>

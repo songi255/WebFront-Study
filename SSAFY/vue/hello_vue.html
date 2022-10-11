@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.min.js"></script>
+  
+  <div id="app">
+    <!-- 변수사용 -->
+    <h1>{{message}}</h1>
+    
+    <!-- 이벤트 등록 -->
+    <!-- 여기서 {{ 변수명 }}은 단방향 바인딩 되었다. vue instance의 값을 수정하면 즉각반영되나, 반대로는 할 수 없다. -->
+    <button v-on:click="bbq">hey</button> <!-- v-on: 이벤트 등록에 사용한다. @click으로 축약할 수 있다. -->
+    
+    <!-- 다시 정리하면, v-bind는 단방향, v-model은 양방향 바인딩이다. -->
+    <a v-bind:href="url1">구글</a><!-- 단방향 바인딩이다. 1.태그 속성을 동적으로 변경하거나, 2.하위컴포넌트로 props전달하기 위해 사용한다. -->
+    <a :href="url2">네이버</a><!-- :href는 v-bind:href 와 같다. -->
+    <input type="text" v-model="message" /><!-- 양방향 바인딩이다. input 태그에 사용한다. -->
+    
+    <!-- if, else-if, else -->
+    <p v-if="seen">seen 이 true다!</p>
+    <p v-else-if="message === '클릭함 ㅋㅋ'">message가 클릭함 ㅋㅋ 이다!</p><!-- 이렇게 "expression" 형태로 넣을 수 있다. -->
+    <p v-else>둘 다 아니다!</p>
+
+    <!-- for -->
+    <li v-for="(todo, index) in todos" v-bind:key="index">
+      {{ todo }}
+    </li>
+    <!-- 연습문제 -->
+    <li v-for="(bucket, index) in buckets" :key="index" v-if="bucket['done']">
+      {{ bucket["text"] }}
+    </li>
+
+  </div>
+  
+  <script>
+    const app = new Vue({
+      el: "#app", // 위에서 정의된 div를 vue 형식으로 바꾼다.
+      data() { // vue instance 에서 변수생성 시 사용하는 객체
+        return {
+          message: "클릭전", // data의 변수들을 전역변수이다. this로 참조할 수 있다.
+          nextMessage: "클릭함 ㅋㅋ",
+          url1: "https://www.google.com",
+          url2: "https://www.naver.com",
+          seen: false,
+          todos: [ "밥먹기", "잠자기", "코딩하기" ],
+          buckets: [
+            { id: 1, text: "치킨먹기", done: true },
+            { id: 2, text: "마라탕먹기", done: true },
+            { id: 3, text: "놀러가기", done: false },
+            { id: 4, text: "코딩하기", done: false },
+            { id: 5, text: "티비보기", done: true },
+          ]
+        }
+      },
+      methods: {
+        bbq(){
+          this.message = this.nextMessage; // 값 변경시 vue에 의해 즉시 반영된다.
+        }
+      }
+    });
+  </script>
+</body>
+</html>

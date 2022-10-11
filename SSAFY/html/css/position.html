@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Position</title>
+  <style>
+    body{
+      height: 1500px;
+    }
+    
+    div{
+      border: 1px solid black;
+      width: 300px;
+      height: 300px;
+    }
+    
+    .pos-static{
+      /* 기본값 */
+      position: static;
+      left: 100px; /* 안먹힌다 */
+    }
+
+    .pos-fixed{
+      /* 스크롤이 움직여도 항상 지정위치에 뜬다. */
+      position: fixed;
+      top: 300px;
+      left: 300px;
+    }
+
+    .pos-relative{
+      position: relative;
+      left: 400px; /* 먹힌다. 다만 원래 자신이 들어가야 할 위치 기준으로 적용된다. */
+    }
+
+    .pos-absolute{
+      position: absolute;
+      top: 600px; /* 아무것도 지정하지 않으면 static일때의 좌표. */
+      /* static이 아닌 가장 가까운 조상을 기준으로 배치된다. 즉.. 어떤 요소를 기준으로 설정하고 싶다면 부모의 static을 해제해줘야한다. */
+      /* 대부분 부모는 relative 해준다. */
+    }
+  </style>
+</head>
+<body>
+  <div class="pos-static">static</div>
+  <div class="pos-fixed">fixed</div>
+  <div class="pos-absolute">absolute</div>
+  <div class="pos-relative">relative</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+// 모듈. 부분파일이다. 이름이 _로 시작하며, css로 변환되지 않아야 한다는 것을 의미한다. @use와 함꼐 사용됨.
+
+.inverse {
+  //background-color: base.$primary-color;
+  color: white;
+}

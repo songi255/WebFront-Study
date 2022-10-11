@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Video.js Basic</title>
+    <!-- 사이트에 링크 및 예제가 있다! -->
+    <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+    <!-- 사이트에선 body 맨 아래에 script 함.. -->
+    <!-- 모든 브라우저에서 동일한 형태로 표시된다. -->
+</head>
+<body>
+    <video
+        id="my-video"
+        controls
+        width="640"
+        height="264"
+        class="video-js"
+        data-setup="{}"
+    >
+        <source src="src/test.mp4" type="video/mp4" />
+        <source src="src/test.webm" type="video/webm" />
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank">
+            supports HTML5 video</a>
+        </p>
+  </video>
+</body>
+</html>

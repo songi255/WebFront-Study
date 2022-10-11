@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        .container{
+            display: grid;
+            grid-template: 200px 200px 200px / 200px 200px 200px; /* 3행 2열 */
+            grid-gap: 10px; /* 이거 쓰지말래. */
+        }
+
+        [class*=cell] {
+            box-sizing: border-box;
+            border: 5px solid black;
+            border-radius: 10px;
+            padding: 10px;
+
+            /* 머.. grid area를 사용해서 문자열로 배치할 수도 있는데.. 난 걍 안쓸란다. 걍 flex쓸래.. */
+        }
+
+        .cell-a {
+            /* 이렇게 몇칸몇열할건지 정할 수 있다. */
+            grid-row-start: 1;
+            grid-row-end: 4;
+            grid-row: 1 / 4; /* 위 두줄은 이렇게 한줄로 바꿀 수 있다. */
+
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cell-a">cell a</div>
+        <div class="cell-b">cell b</div>
+        <div class="cell-c">cell c</div>
+        <div class="cell-d">cell d</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Document</title>
+    <!-- 
+        특정 속성을 가진 태그 선택
+        다른 선택자와 함께 사용
+        기본속성 선택자 : 많이 사용
+        문자열속성 선택자 : 특수한 경우에만 사용
+        기본꼴 : 선택자[속성] or 선택자[속성=값][속성=값]
+     -->
+    <style>
+        input[type=text] { background-color: red; }
+        input[type=password] { background-color: blue; }
+
+        /* 문자열속성 선택자 */
+        img[src$=png] { border: 3px solid red; }
+        img[src$=jpg] { border: 3px solid green; }
+        img[src$=gif] { border: 3px solid blue; }
+    </style>
+</head>
+<body>
+    <!-- input태그 사용시 기본속성 선택자 많이 사용 -->
+    <input /> <!-- input은 type 미입력시 text타입이 되나, 정확하게 text입력한 것만 css적용 -->
+    <input type="text" />
+    <input type="password" />
+
+    <hr />
+
+    <!--
+        문자열 속성 선택자
+        선택자[속성~=값] : 특정 값을 단어로 포함
+        선택자[속성|=값] : 특정 값을 단어로 포함 (-을 구분자로 인식하는게 다름)
+        선택자[속성^=값] : 특정 값으로 시작
+        선택자[속성$=값] : 특정 값으로 끝
+        선택자[속성*=값] : 특정 값을 포함
+
+        진짜로 잘 사용안한다
+    -->
+    <img src="../src/sample.png" alt="error" width="200" height="250"/>
+    <img src="../src/sample.jpg" alt="error" width="200" height="250"/>
+    <img src="../src/sample.gif" alt="error" width="200" height="250"/>
+</body>
+</html>

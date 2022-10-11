@@ -1,0 +1,89 @@
+<!-- 
+  인스턴스 생성 - new Vue()
+    - 이벤트 및 라이프사이클 초기화
+    - beforeCreate()
+    - 화면에 반응성 주입
+    - created()
+    - el, template 속성 확인
+    - template 속성을 render()로 변환
+    - beforeMount()
+    - vm.$el 생성 후 el 속성값을 대입
+    - Mount()
+  인스턴스를 화면에 부착
+    - 인스턴스 데이터 변경
+    - beforeUpdate()
+    - 화면 재 랜더링 및 데이터 갱신
+    - updated()
+  인스턴스 내용 갱신
+    - 인스턴스 접근가능
+    - beforeDestroy()
+    - 컴포넌트, 인스턴스, 디렉티브 등 모두 해제
+    - destroy()
+  인스턴스 소멸
+
+  여기서 자주쓰는 lifeCycle이 있다.
+    - created()
+      - 인스턴스는 생성되었으나, 아직 화면에 붙여지지 않은 단계
+      - 데이터 갱신에 적합하다!!
+      - 비동기 통신 호출 가능한 시점이다.
+    - mounted()
+      - 인스턴스가 화면에 부착된 후 자동 실행
+      - DOM에 접근 가능한 시점이다. -> this.$refs 사용
+        - 그러나 virtual DOM을 사용해야 하므로, 예외상황(input focus같은..)을 제외하고는 접근을 권장하지 않는다.
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  
+  <div id="app">
+    <input type="text" ref="input_ref"> <!-- ref속성을 줌으로써, mounted()안에서 $refs.속성 으로 접근할 수 있다. -->
+    <p ref="p">test</p>
+    <div ref="lawDiv" v-for="(law, index) in laws" :key="index" v-if="!law.completed">
+      {{ law }}
+    </div>
+  </div>
+  
+  
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          todo: {},
+          laws: []
+        }
+      },
+      methods: {
+
+      },
+      async created() { // lifecycle함수.. 자동으로 실행된다.
+        console.log("created");
+        const result = await axios.get("https://jsonplaceholder.typicode.com/todos/1");
+        console.log(result);
+        this.todo = result.data;
+        // 도전문제
+        const data = await axios.get("https://koreanjson.com/todos");
+        this.laws = data.data.map(e => e.title);
+      },
+      mounted(){
+        console.log("mounted");
+        console.log(this.$refs); // app을 가리킨다.
+        this.$refs.input_ref.focus();
+        this.$refs.p.style.color = "blue";
+        //this.$refs.lawDiv.style.border = "1px solid black"; 작동안하네..
+      }
+    });
+  </script>
+
+</body>
+</html>
