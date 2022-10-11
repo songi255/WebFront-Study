@@ -210,3 +210,95 @@ $apple.replaceChild($newChild, $apple.firstElementChild);
 // 노드 삭제
 $apple.removeChild($apple.lastElementChild);
 
+
+// Attribute
+// attr 하나당 1개의 Attribute Node가 생성되어 부착된다.
+// 이때, 모든 attr Node 참조는 유사배열/이터러블인 NamedNodeMap에 담겨서 요소노드의 attributes 프로퍼티에 저장된다.
+$apple.attributes; // NamedNodeMap Collection을 반환한다.
+$apple.attributes.id.value; // 값 취득
+// 다만 attributes는 읽기전용으로 getter만 존재해서 수정할 수 없다. 그래서 대신 메서드를 사용하자.
+$apple.getAttribute('value');
+$apple.setAttribute('value', 'foo');
+$apple.hasAttribute('value');
+$apple.removeAttribute('value');
+
+// 기본적으로 attribute로 태그에 추가되면, DOM요소에는 프로퍼티 또한 추가된다.
+$apple.id; // 이게 접근이 된다는 말.
+
+// 그렇다면 attribute와 property로 중복관리되고 있을까? 그렇지 않다.
+// 예를 들어 <input>같은 경우다.
+// attribute는 딱 초기상태의 값만 가지고 있다. 하지만 요소는 기본적으로 state. 상태를 가지고 있다.
+// 사용자가 입력을 하면서 state가 변한다. 즉, 초기상태는 attribute가, 변경되는 최신상태는 property가 관리하는 것이다!
+// 즉, 무언가 수정이 필요하면 property로 접근하는 것이 맞다.
+
+// 다만, 모든 attr가 이런 것은 아니다. 예를들어 id의 경우, 사용자 입력에 의해 변할 이유가 없다.
+// 이처럼 사용자 입력에 의한 state변화와 관계없는 경우, attr과 prop는 바인딩되어있다. 하나가 변하면 다른 하나도 변한다.
+$apple.id = "aaa";
+$apple.getAttribute('id'); // aaa로 같이 변했다.
+
+// 모든 attr이 동일한 이름으로 연동되지는 않는다. 예를들어 class attr은 className과 classList로 연동된다. td의 colspan은 아예 연동요소가 없다.
+
+// getAttribute는 항상 문자열을 리턴한다. property는 값이 존재한다.
+$checkbox.getAttribute('checked'); // ''를 return 
+$checkbox.checked; // true를 리턴. 
+
+
+// data, dataset 프로퍼티
+<ul>
+    <li id="1" data-user-id="7621" data-role="admin">Lee</li>
+    <li id="2" data-user-id="9524" data-role="subscriber">Kim</li>
+</ul>
+$li.dataset.userId; // Lee.
+// 무슨느낌이냐면, tag에 사용자지정 data를 달아놓고, js와 연동하는 것이다.
+// data-user-id 처럼 kebab case를 CamelCase로 변환한 프로퍼티가 자동으로 생성되고, 모든 data 관련 어트리뷰트는 dataset으로 접근할 수 잇따.
+// 위에서도 data-user-id는 dataset.userId로 접근할 수 있다.
+// 참고로 dataset은 해당요소의 모든 data attribute를 프로퍼티로 가지고있는 DOMStringMap 객체를 반환한다.
+// 걍 dataset.없는프로퍼티 = "~~~"로 대입하면 data attribute가 생긴다. 즉 setter이기도 하다.
+
+
+// style 조작
+$apple.style; // CSSStyleDeclaration 객체를 반환한다.
+$apple.style.backgroundColor = 'blue'; // 인라인 스타일 조작. 보다시피 kebab-case에서 CamelCase로 변경한 이름이 프로퍼티이다.
+$apple.style['background-color'] = 'yellow'; // kebab-case를 그대로 사용하고 싶으면 이렇게 대괄호 표기법을 사용하면 된다.
+// 위 property는 딱 해당요소에 적용된 css만 반환한다. class 등에 의해 복합적으로 적용된 모든 style을 참조하려면 어떻게 해야할까?
+window.getComputedStyle($apple); // 최종적으로 적용된 모든 스타일을 CSSStyleDeclaration 객체로 반환한다.
+window.getComputedStyle($apple, ":hover"); // 두번째 인자로 의사요소를 문자열로 지정할 수 있다.
+
+// class 조작
+$apple.className; // 'box blue' 같이 전부 반환. setter로 사용해도 당연히 덧씌워지는 것이다. 여러 class가 있다면 다루기 불편하다.
+
+const classList = $apple.classList; // DOMTokenList를 반환한다. 여러 유용한 메서드들이 있다.
+classList.add('foo');
+classList.add('red', 'big');
+classList.remove('blue', 'small'); // 제거 대상이 없으면 에러없이 무시된다.
+classList.item(0); // 마치 배열 index처럼 접근해서 class를 가져온다.
+classList.contains('box');
+classList.replace('red', 'blue');
+classList.toggle('red');
+classList.toggle('red', true); // 두번째 인수가 true이면 강제로 무조건 추가한다. false면 강제로 무조건 제거한다.
+// 그 외 이런저런 메서드가 있다.
+
+/* HTML과 DOM 표준은 W3C (WWW Consortium)과 WHATWG (Web Hypertext Application Technology Working Group) 에서 협력하면서 공통표준을 만들어왔다.
+    그런데 두 단체가 다른 결과물을 내놓기 시작했다. 이는 좋지 않다.
+    그래서 2018년 4월부터 Google, Apple, MS, Mozilla 로 구성된 4개의 주류 브라우저 벤더사가 주도하는 WHATWG가 단일표준을 내놓기로 합의되었다.
+    DOM은 4가지 level이 있다.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
