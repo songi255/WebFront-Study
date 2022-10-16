@@ -89,6 +89,38 @@ class Base{}
 class Deprived extends Base {} // construct가 생략되어있다. 자동으로 constructor(...args) { super(...args) }가 적용된다.
 // 만약 subclass에서 constructor를 추가정의한다면 super()는 생략할 수 없다!!
 
+//super
+//super는 SubClass.prototype과 같다.
+class Base{
+    sayHi() { return this.name; }
+}
+class Deprived extends Base {
+    sayHi(){
+        return super.sayHi(); // 이렇게 호출하면 어떻게 될까? null찍는다 왜? this가 super 자체를 가리키게 된다. 이는 곧 Base.prototype을 가리킨다는 뜻이다.
+        // this 는 생성되는 객체를 가리켜야 한다!! 그래서 super의 메서드 호출 할 경우 call로 this바인딜을해주어야 한다.
+        return super.sayHi.call(this); // 이게 맞다.
+        // 여기서 sayHi는 총 2가지 버전이 있다. 이를 구분하기 위해서, method 그 자체가 [[HomeObject]] 를 가진다.
+        // [[HomeObject]]는 자신이 정의된, 자신이 바인딩된 객체를 가리킨다. 즉, 여기서 sayHi는 Deprived를 가리키나, super.sayHi는 Base를 가리키는 것이다.
+        // -> sayHi의 [[HomeObject]]가 Deprived 이기 때문에, 이 안에서의 Super가 Base로 인식될 수 있는것이다!!!
+        // 다만 주의할 것은, ES6의 메서드 축약표현 (지금 이 방식) 만이 [[HomeObject]]을 가진다. 바꿔말하면 이외의 함수는 super을 사용할 수 없다.
+    }
+} 
+
+// super가 class 만의 전유물은 아니다. 객체리터럴에서도 사용할 수 있다.
+let base = {
+    sayHi() {
+        return 'Hi';
+    }
+};
+
+let deprived = {
+    __proto__: base, // 이렇게도 상속이 가능하구나. 여기서는 base 객체 그 자체를 넣었기 때문에, this가 base 객체를 가리키게 된다! 따라서 바인딩할 필요는 없다.
+    sayHi() {
+        return super.sayHi();
+    }
+}
+
+
 //동적 상속
 // extends뒤에는 Constructor 함수로 평가되는 "표현식"이 들어올 수 있다!!! ㅋㅋ 그래서 상속마저 동적으로 가능하다.
 function Base2(a) { //모든 함수는 생성자함수! 생성자 함수 또한 상속가능하다.
@@ -97,4 +129,29 @@ function Base2(a) { //모든 함수는 생성자함수! 생성자 함수 또한 
 let condition = false;
 class Deprived2 extends (condition ? Base : Base2){} // ㅋㅋ.. 개쩌네
 
-//super는 SubClass.prototype과 같다.
+
+
+/* 상속 클래스의 인스턴스 생성과정
+    class는 (그니까.. 생성자함수로 변환된 실체..) super생성자를 [[prototype]]에 가지고, prototype은 prototype을 가리킨다.
+    prototype은 각각 상속받은 prototype을 [[prototype]]에 가진다.
+   
+    [[ConstructorKind]] 는 class 평가시에 super클래스와 sub클래스를 구분하기 위해 "base", "deprived" 둘 중 하나를 가진다.
+        - 이를 통해 new 동작이 구분된다. base는 암묵적으로 빈객체 생성 후 this 바인딩한다.
+        - 하지만 deprived는 첫 생성은 super 클래스에 위임한다. 생성자에서 super()를 꼭 호출해야 하는 이유이다. this도 일단 여기서 만든 this에 바인딩된다.
+        - 다만 new와 함께 호출된 함수를 가리키는 new.target은 subclass를 가리키게 되므로, subclass가 생성한 것으로 처리된다. 그래서 prototype도 subclass.prototype이 된다.
+        - super()가 끝나면 그 반환객체를 걍 그대로 this바인딩해서 사용한다.
+*/
+
+// 표준 빌트인 생성자의 확장 예시
+class MyArray extends Array {
+    average() {
+        // 주의할 점은, map, filter같이 새로운 배열을 반환하는 메서드가 Array가 아닌 MyArray 를 반환하게 된다는 것이다.
+        // 덕분에 메서드 체이닝도 가능하다. 왜 이렇게 될까? Array.prototype.map 같이 되어있고, 이걸 상속받았기때문이다.. ㅋㅋ
+        return this.reduce((pre, cur) => pre + cur, 0) / this.length;
+    }
+
+    // 만약 MayArray 말고 Array를 반환하게 하고 싶다면, 아래처럼 접근자 프로퍼티를 추가한다.
+    static get [Symbol.species]() {return Array;} // 모든 메서드가 Array 타입 인스턴스를 반환하게 된다.
+    // 먼가 애매하네..
+}
+

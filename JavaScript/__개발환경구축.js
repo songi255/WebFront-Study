@@ -86,6 +86,35 @@
             - Code - 기본설정 - 설정 - setting.json에 "eslint.validate": ["html", "javascript"] 추가
         - root에 .eslintrc.json 추가
             - 필요에 따라 내용작성.. 아래에 예시
+        - private 같이 정식 표준이 아닌 경우 에러발생하는 경우가 있다.
+            - npm install --D @babel/core @babel/eslint-parser @babel/preset-env
+            - babel.config 생성
+                - { "presets": ["@babel/preset-env"] }
+            - .eslintrc.json 에 parser 설정
+                - { "parser": "@babel/eslint-parser" }
+        - TypeScript
+            - npm install --save-dev typescript @typescript-eslint/parser
+            - .eslintrc.json에 parser 설절
+                - { "parser": "@typescript-eslint/parser" }
+        - React 에서 ESLint와 Prettier를 같이 사용하기 위해서도 플러그인이 필요하다. (충돌부분을 비활성화해준다.)
+            - cd <your react app>
+            - npm install --save-dev eslint-config-prettier
+            - .eslintrc.json 수정
+                -   "extends": [
+                        "airbnb-base",
+                        "prettier",
+                        "react-app"
+                    ],
+            - .prettierrc.json 생성
+                - {
+                    "singleQuote": true,
+                    "bracketSpacing": true,
+                    "bracketSameLine": true,
+                    "arrowParens": "avoid",
+                    "printWidth": 120
+                }
+            
+                      
     6. Prettier
         - 코드를 이쁘게 format하는 도구이다. Lint 도구가 아니다!
         - prettier-vscode 익스텐션설치
@@ -120,9 +149,6 @@
                 // 수정 후 저장할 때 eslint로 autofix 실행 (ex. let => const)
                 "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
                 "editor.defaultFormatter": "esbenp.prettier-vscode",
-            
-ESLINT 8번부터 추가필요!!
-
 */
 
 // webpack.config.js 에 들어가는 내용
@@ -212,7 +238,7 @@ module.exports = {
 }
 */
 
-
+// 일단 머.. 적어놓긴 했지만 자세한건 poiemaweb.com + etc... 활용해서 직접 설정하도록 하자.
 
 
 

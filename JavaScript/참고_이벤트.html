@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Event</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #fff700;
+      border: 5px solid orange;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <input type="text" />
+  <em class="message"></em>
+  <script>
+    ///////////////////////////////////////////////////////////////////////////////////
+    const $box = document.querySelector('.box');
+    
+    const initialMousePos = {x: 0, y: 0};
+
+    const offset = {x: 0, y: 0};
+
+    const move = e => {
+      offset.x = e.clientX - initialMousePos.x;
+      offset.y = e.clientY - initialMousePos.y;
+
+      $box.style.transform = `translate3d(${offset.x}px, ${offset.y}px, 0)`;
+    }
+
+    $box.addEventListener('mousedown', e => { // mosedown 시에 move 리스너 부탁
+      initialMousePos.x = e.clientX - offset.x;
+      initialMousePos.y = e.clientY - offset.y;
+
+      document.addEventListener('mousemove', move);
+    })
+
+    document.addEventListener('mouseup', () => { // mouseup 시에 move 리스너 제거
+      document.removeEventListener('mousemove', move);
+    });
+    ////////////////////////////////////////////////////////////////////////////////////
+    const $input = document.querySelector('input[type=text]');
+    const $msg = document.querySelector('.message');
+
+    // 참고로 input에 한글 입력 후 Enter 시 keyup 이벤트가 2번 발생하는 버그가 있다. 이럴 경우 keyDown을 써주자.
+    $input.onkeyup = e => {
+      if (e.key !== 'Enter') return;
+
+      $msg.textContent = e.target.value;
+      e.target.value = '';
+    };
+  </script>
+</body>
+</html>
