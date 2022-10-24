@@ -358,6 +358,128 @@ function App() {
 // 위의 합성기능을 이용하면, 하나의 공통 Component를 포함시키는 여러 특수 Component를 사용해서 상속처럼 사용할 수 있다.
 // 아직까지 component를 직접적으로 extends 해야 할 사례는 찾지 못했다고 한다. props를 이용한 합성으로 전부 처리가능하다.
 
+// 아래는 코드분할 팁들.
+
+const OtherComponent = React.lazy(() => import('./OtherComponent')); // 동적 임포트.
+// "React 컴포넌트를 default export로 가진 모듈 객체" 가 이행되는 Promise를 반환해야 한다.
+
+// lazy import는 default import로 하나만 내보내는 것만 지원한다. 만약, 한 파일에 여러 컴포넌트가 섞였다면 어떡할까?
+// export { MyComponent as default } from "./ManyComponents.js"; // 이렇게 하나만 뽑아주는 녀석을 모듈로 정의해서 파일을 만들어주면 된다. 근데 이럴바에 애초에 따로 만들면 되지 않나?
+
+import { Suspense } from 'react'; // lazy 컴포넌트는 Suspense 컴포넌트 하위에서 랜더링되어야 한다.
+// 이 Suspense 컴포넌트는 lazy가 로딩되는 동안 예비 컨텐츠를 보여줄 수 있다.
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>{/* fallback : 로딩될 때 까지 보여줄 react element이다. */}
+        <OtherComponent /> {/* lazy 컴포넌트는 Suspense 아래에서 사용.. */}
+        <OtherComponent /> {/* 여러 lazy를 품을 수 있다. */}
+      </Suspense>
+    </div>
+  );
+}
+// lazy 컴포넌트와 전환
+// 만약, state에 따라 컴포넌트가 전환될 때, lazy컴포넌트로 전환된다면 랜더링에 문제가 생길 것이다. 어떻게 해결할 수 있을까?
+// 물론 fallback에 대체컴포넌트 설정해서 해결할 수 있다.
+//import Glimmer from './Glimmer';
+//fallback=<Glimmer /> // Glimmer가 먼지는 모르겠다...
+
+// 그러나, UI 전환 전 이전UI를 계속 보여주는게 더 바람직할 수 있다. 그때 startTransition을 사용한다.
+function handleTabSelect(tab) {
+  startTransition(() => { // React.useTransition()을 사용할 수 없을 때 사용한다. 콜백으로 주어진 전환이 긴급전환이 아니라 transition이라는 걸 알린다.
+    setTab(tab); // setTab은 그냥 Tab 컴포넌트에 정의된 함수인듯.
+  });
+}
+
+//보통은 페이지단위로 로딩할 일이 많기 때문에, React-router를 이용한 분할을 많이 한다. 아래는 예시이다.
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
+
+const App = () => (
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Suspense>
+  </Router>
+);
+// React-Router 추가.
+
+const MyComponent = () => (
+  <div>
+    <MyErrorBoundary>{/* 네트워크 장애 등, 다른 모듈 로드에 실패할 수 있다. 이때 ErrorBoundary로 lazy 컴포넌트를 감싸 UX를 개선할 수 있다. */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <section>
+          <OtherComponent />
+          <AnotherComponent />
+        </section>
+      </Suspense>
+    </MyErrorBoundary>
+  </div>
+);
+
+///////////////////////////////////////////////////////////
+// context. vue의 vuex와 비슷한 느낌이다. props를 중앙관리한다.
+// 물론 context보다 composition을 이용하면 더 깔끔한 경우가 많다.(제어의 역전) 전부 상황따라 판단하라.
+// 그래서 언제 사용하나? 모든 컴포넌트들에게 방송할 때. 즉, 데이터캐시, 테마, 로케일 등등... 에 사용하면 좋다.
+const MyContext = React.createContext(defaultValue); // Context 객체 생성
+const MyChildContext = React.createContext(defaultValue);
+//context를 구독하는 component는 렌더링 시에 가장 가까이 있는 Provider로부터 값을 읽는다.
+//defaultValue는 적절한 provider를 찾지 못했을 때 사용되는 값이다.(컴포넌트 테스트 시 유용하다.) (provider에서 undefined를 보낸다고 defaultValue를 읽지는 않는다.)
+<MyContext.Provider value={"어떤 값"}>
+  {/*Provider 하위의 객체들은 value가 업데이트될 때마다 업데이트된다. shouldComponentUpdate가 적용되지 않아서, 부모가 update를 건너뛰어도 업데이트된다. */}
+  {/* 값 변경여부는 Object.is와 같은 방식으로 동작한다.  */}
+  <MyChildContext.Provider>
+    {/* Provider 밑에 Provider를 넣을수도 있다. 이때 value가 중복되면 셰도잉된다. */}
+  </MyChildContext.Provider>
+  
+  
+  <MyContext.Consumer> {/* Consumer. context의 변화를 구독한다. */}
+    {value => {} /* context 값을 이용한 렌더링 */}
+    {/* 이처럼, 자식은 무조건 함수여야 하고, value를 이용해서 랜더링값(React 노드)을 반환하면 된다. */}
+  </MyContext.Consumer>
+</MyContext.Provider>;
+
+// 다시 정리. Context 를 생성하고, 해당 Context의 Provider를 지정하는 것이다. 당연히 한 Context당 여러개 지정할 수 있다.
+
+// 주의사항
+<MyContext.Provider value={{something: 'something'}}> {/* 이렇게 객체로 value를 넣어주었다. 어떤 문제가 발생할까? */}
+  {/* value가 바뀔 때 마다 매번 새로운 객체가 생성되므로, 불필요한 업데이트가 발생할 수 있다. */}
+  {/* 해결법은, 해당 value객체를 부모의 state로 끌어올리는 것이다. */}
+  <Toolbar />
+</MyContext.Provider>;
+
+
+class MyClass extends React.Component {
+  componentDidMount() {
+    let value = this.context;
+    /* MyContext의 값을 이용한 코드 */
+  }
+  componentDidUpdate() {
+    let value = this.context;
+    /* ... */
+  }
+  componentWillUnmount() {
+    let value = this.context;
+    /* ... */
+  }
+  render() {
+    let value = this.context; // contextType에 부착했고, this.context로 읽어올 수 있다. 가장 가까운 해당 Context의 Provider에서 value를 가져온다.
+    //render를 포함한 모든 컴포넌트생명주기에서 사용할 수 있다.
+  }
+}
+MyClass.contextType = MyContext; // 내가 만든 커스텀 class에 원하는 Context를 부착했다. 이렇게 contextType 프로퍼티를 사용해서 부착한다.
+// 이 API는 하나의 context만 구독할 수 있다.
+
+MyContext.displayName = 'MyDisplayName'; // context에 displayname을 줄 수 있다. react 개발자도구에서 해당이름으로 표시된다.
+
+// 예시~~ 부터 보면 됨. Context~~~~ 하고 아직 안하고 Fragment로 건너뛴 듯.
 
 //Fragment
 function ListItem({ item }) {
