@@ -479,6 +479,8 @@ MyClass.contextType = MyContext; // 내가 만든 커스텀 class에 원하는 C
 
 MyContext.displayName = 'MyDisplayName'; // context에 displayname을 줄 수 있다. react 개발자도구에서 해당이름으로 표시된다.
 
+
+
 // 예시~~ 부터 보면 됨. Context~~~~ 하고 아직 안하고 Fragment로 건너뛴 듯.
 
 //Fragment
