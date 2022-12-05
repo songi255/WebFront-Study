@@ -31,20 +31,58 @@ const MyChildContext = React.createContext(defaultValue);
 // 1. Context 를 생성하고,
 // 2. 해당 Context의 Provider를 지정, Provider 태그 사이에 작성
 // 3. Provider 하위에 Consumer 지정하여 사용. 당연히 한 Context당 여러개 지정할 수 있다.
+// 여러 Provider 가 있다면, Consumer도 각각 있다. 이유는 랜더링을 효율적으로 하기 위해서이다.
 
-// 여기서부터 보기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-// 주의사항
+
+
+
+
+/////////////////////////////////////////////////////// inversion of control (제어의 역전) -> context 쓰기 전에 고려해보자.
+// 만약, props 를 사용하는 수준이 너무 아래부분이라면, 그부분은 상위에서 직접 넘겨주면 된다.
+function Page(props) {
+  const user = props.user;
+  const content = <Feed user={user} />;
+  
+  const topBar = (
+    <NavigationBar>
+      <Link href={user.permalink}>
+        <Avatar user={user} size={props.avatarSize} />
+      </Link>
+    </NavigationBar>
+  );
+  // 실사용하는 Avatar 에 직접 넘겨줌으로써 props를 계속 넘겨주지 않아도 된다.
+
+  return (
+    <PageLayout
+      topBar={topBar}
+      content={content}
+    />
+  );
+}
+// 하지만, 수가 늘어날수록 난해해질 것이다. 즉, 항상 옳은 것이 아니다.
+
+
+
+
+
+
+//////////////////////////////////////////////////////// 주의사항
 <MyContext.Provider value={{something: 'something'}}> {/* 이렇게 객체로 value를 넣어주었다. 어떤 문제가 발생할까? */}
   {/* value가 바뀔 때 마다 매번 새로운 객체가 생성되므로, 불필요한 업데이트가 발생할 수 있다. */}
   
-  {/* 무슨말이냐면, value안에 여러값이 있는데, 한 값이 */} 
+  {/* something 값은 바뀌지 않았는데, Provider가 재랜더링되었다는 이유만으로, value 객체는 새롭게 만들어져, 참조가 바뀌어 변경으로 인식하고 재랜더링한다는 뜻. */} 
   
-  {/* 해결법은, 해당 value객체를 부모의 state로 끌어올리는 것이다. */}
+  {/* 해결법은, 해당 value객체를 부모의 state로 끌어올리는 것이다. 즉, value={this.state.value} 같이 사용되어야 한다. */}
   <Toolbar />
 </MyContext.Provider>;
 
 
+
+
+
+
+//////////////////////////////////////////////////// Class 컴포넌트에서 context 사용하기
 class MyClass extends React.Component {
   componentDidMount() {
     let value = this.context;
@@ -66,7 +104,6 @@ class MyClass extends React.Component {
 MyClass.contextType = MyContext; // 내가 만든 커스텀 class에 원하는 Context를 부착했다. 이렇게 contextType 프로퍼티를 사용해서 부착한다.
 // 이 API는 하나의 context만 구독할 수 있다.
 
-MyContext.displayName = 'MyDisplayName'; // context에 displayname을 줄 수 있다. react 개발자도구에서 해당이름으로 표시된다.
+// context에 displayname을 줄 수 있다. react 개발자도구에서 해당이름으로 표시된다.
+MyContext.displayName = 'MyDisplayName'; 
 
-
-// 예시~~ 부터 보면 됨.
