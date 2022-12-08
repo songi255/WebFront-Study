@@ -47,4 +47,72 @@ const BlogPostWithSubscription = withSubscription(BlogPost, (DataSource, props) 
 
 ///////////////////////////////////////////////// Convention
 
-//
+// props 넘겨주기
+class PassProps extends React.Component{
+  render() {
+    // HOC 에서 사용할 props 는 따로 분리
+    const { extraProp, ...passThroughProps } = props;
+  
+    // 추가할 props가 있다면 추가. 일반적으로 Status값 또는 Instance method 를 추가하게 됨.
+    const injectedProp = someStateOrInstanceMethod;
+  
+    // wrapped component에 props를 전달합니다.
+    return (
+      <WrappedComponent
+        injectedProp={injectedProp}
+        {...passThroughProps}
+      />
+    );
+  }
+}
+
+
+
+// compose() 사용해서 composability 끌어올리기 
+// HOC 들은 여러 방식으로 작성할 수 있다.
+const NavbarWithRouter = withRouter(Navbar); // 단일 props 사용하거나..
+const CommentWithRelay = Relay.createContainer(Comment, config); // 추가 옵션을 부여하거나..
+// React Redux의 `connect`
+const ConnectedComment = connect(commentSelector, commentActions)(CommentList); // 이건 훨씬 일반적인 형태이다.
+// 이 일반적인 형태 (컴포넌트 -> 컴포넌트 인 함수연결형태) 는 쉽게 조합할 수 있는데, compose()로 할 수 있다.
+
+let EnhancedComponent = withRouter(connect(commentSelector)(WrappedComponent)); // 이렇게 한번에 넣어주는 대신...
+// compose(f, g, h)는 (...args) => f(g(h(...args)))와 같습니다.
+const enhance = compose(
+  // 둘 다 단일 매개변수의 HOC입니다.
+  withRouter,
+  connect(commentSelector)
+); // 이렇게 compose 를 통한 조합함수를 만들어서 사용할 수 있다.
+
+EnhancedComponent = enhance(WrappedComponent)
+// compose 유틸리티 기능(효용 함수)는 lodash (as lodash.flowRight), Redux, and Ramda를 포함한 많은 서드 파티 라이브러리에서 제공하고 있다. -> 써봐야 알듯.
+
+
+// Display Name 작성 -> HOC의 결과임을 DevTools 를 통해 알 수 있게 한다.
+function withSubscription(WrappedComponent) {
+  class WithSubscription extends React.Component {/* ... */}
+  WithSubscription.displayName = `WithSubscription(${getDisplayName(WrappedComponent)})`;
+  return WithSubscription;
+}
+// 걍 내부적으로 display name 을 정의해서 묶어준다는 뜻.
+
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
+
+//////////////////////////////////// 주의사항
+// 1. render() 안에서 HOC 조합을 하지 마라. (함수 호출 하지마라.)
+//   HOC는 함수를 반환하기 때문에, 매 렌더링마다 새로운 Component 가 생겨버린다. 그래서 하위도 새롭게 렌더링되며, 성능이슈는 물론 state 등이 다 날라간다.
+
+// 2. 정적 메서드는 복사되지 않는다 (당연하지. props 만 받아서 재생성하니까.) 고로 따로 복사해주자.
+import hoistNonReactStatic from 'hoist-non-react-statics';
+import React from 'react';
+function enhance(WrappedComponent) {
+  class Enhance extends React.Component {/*...*/}
+  hoistNonReactStatic(Enhance, WrappedComponent); // react 에서 복사함수를 제공한다.
+  return Enhance;
+}
+// 혹은 export 를 추가해서 정적메서드도 따로 내보내면 된다
+
+// 3. ref 는 전달되지 않는다. key 처럼 따로 특별히 취급하기 떄문. forwardRef 를 사용하면 되고, Ref.jsx 를 참고하자.
