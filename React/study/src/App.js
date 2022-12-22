@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 
-// HOC Convetion 부분부터 보면 됨
+// Ref 에 접근하기 부분부터 보면 됨
 
 
 
