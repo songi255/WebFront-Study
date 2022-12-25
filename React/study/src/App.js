@@ -1,11 +1,4 @@
-import './App.css';
-import React from 'react';
-
-// Ref 에 접근하기 부분부터 보면 됨
-
-
-
-// label
-<label htmlFor="namedInput">Name:</label> // react는 이렇게 for대신, htmlFor를 사용한다.
+import "./App.css";
+import React from "react";
 
 export default App;

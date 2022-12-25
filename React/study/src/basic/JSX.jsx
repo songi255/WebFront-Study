@@ -11,6 +11,11 @@ React.createElement(
     'Click Me'
 );
 
+// html 과 다른 속성명
+
+// label
+<label className="myLbl" htmlFor="namedInput">Name:</label> // react는 이렇게 for대신 htmlFor를, class 대신 className 을 사용한다.
+
 
 // .연산자로 속성사용가능
 const MyComponents = {

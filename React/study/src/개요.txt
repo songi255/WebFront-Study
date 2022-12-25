@@ -10,6 +10,23 @@
           - live server 처럼 실시간 수정환경을 켜는 것이다.
           - localhost:3000 으로 접속할 수 있다.
       2. 추가 환경세팅 : Babel, Webpack, ESLint(대부분 이렇게 씀)
+        - create-react-app 쓰면 bable, webpack, eslint 다 기본으로 깔려있다.
+        - 추가로 eslint, prettier 사용해보자.
+          - eslint, prettier extension 설치
+            - settings - format on save 활성화
+          - npm eslint --init 으로 .eslintrc.* 생성
+            - rules에 "react/react-in-jsx-scope": "off" 넣으면 jsx 형식 미사용으로 인한 오류는 skip
+            - test or expect is not defined 뜨면 env 에 "jest": true 추가
+          - npm i eslint-config-prettier eslint-plugin-prettier prettier --save-dev
+          - npm install eslint-plugin-react-hooks --save-dev
+            - react hooks 규칙도 eslint에 추가하는 것.
+          - .eslintrc 에 추가
+            - "plugin:prettier/recommended"
+            - "plugin:react-hooks/recommended"
+        - 정리해보자. prettier 는 Alt + Shift + F 누르면 코드 정렬한다.
+        - 이 정렬 기준이 eslint 랑 달라 오류가 발생하기도 하기에, eslint-config-prettier 를 사용해서 eslint가 정렬상태외에것만 체크하도록 하는 것.
+        - 즉, 정렬은 eslint 말고 prettier 에게 맡기는 것이다. 결국 여기서 오류 안나면 아무 상관없다.
+        - 참고로 prettier custom 설정은 .prettierrc.json 을 만들어서 사용할 수 있다.
       3. 배포할 준비가 되었다면 npm run build 로 빌드한다.
         - build 폴더에 결과물이 생긴다.
     2. SSR node.js를 만들고싶다면? -> Next.js
