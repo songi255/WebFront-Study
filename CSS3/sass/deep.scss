@@ -1,0 +1,184 @@
+///////////////////////////// Nesting ///////////////////////////////////////////
+
+.alert,
+.warning {
+  ul,
+  p {
+    margin-right: 0;
+    margin-left: 0;
+    padding-bottom: 0;
+  }
+} // 이런 중복생성 가능
+
+ul > {
+  li {
+    list-style-type: none;
+  }
+}
+
+h2 {
+  + p {
+    border-top: 1px solid gray;
+  }
+}
+
+p {
+  ~ {
+    span {
+      opacity: 0.8;
+    }
+  }
+} // 선택자 조합가능
+
+.enlarge {
+  font-size: 14px;
+  transition: {
+    // transition-~~~ 인 속성들을 모두 묶었다.
+    property: font-size;
+    duration: 4s;
+    delay: 2s;
+  }
+
+  //hover 같은 걸 parent selector & 를 사용해서 한번에 정의한다.
+  &:hover {
+    font-size: 36px;
+  }
+
+  &-red {
+    // 접미사. enlarge-red 를 선택하게 된다.
+    color: red;
+  }
+
+  // sass script 에서는 & 가 선택자 문자열 그 자체로 변환된다.
+  @mixin app-background($color) {
+    #{if(&, '&.app-background', '.app-background')} {
+      // 요런식으로, &를 사용해서 규칙을 정의할 수 있다.
+      background-color: $color;
+      color: rgba(#fff, 0.75);
+    }
+  }
+}
+
+.info-page {
+  margin: auto {
+    // margin 자체 값은 auto 를 준 모습.
+    bottom: 10px;
+    top: 2px;
+  }
+}
+
+// 고급 nesting. at rule 공부한 후에 다시보자.
+@use "sass:selector";
+
+@mixin unify-parent($child) {
+  @at-root #{selector.unify(&, $child)} {
+    @content;
+  }
+}
+
+.wrapper .field {
+  @include unify-parent("input") {
+    /* .wrapper input.filed 가 선택된다. */
+  }
+  @include unify-parent("select") {
+    /* ... */
+  }
+}
+
+// 다만, 중첩이 깊어질수록 css 생성량이 많아지는데, 가시적이지 않다.
+// 이럴수록 브라우저에서 랜더링하는데 힘이 드니 조심하자.
+
+/////////////////////////////////////////////// placeholder //////////////////////////////////
+%toolbelt {
+  box-sizing: border-box;
+  border-top: 1px rgba(#000, 0.12) solid;
+  padding: 16px 0;
+  width: 100%;
+
+  &:hover {
+    border: 2px rgba(#000, 0.5) solid;
+  }
+}
+
+.action-buttons {
+  @extend %toolbelt;
+  color: #4285f4;
+}
+
+.reset-buttons {
+  @extend %toolbelt;
+  color: #cddc39;
+}
+// 무슨 용도일까? @extend 로 확장이 가능해서, css를 어지럽히지 않고 사용할 수 있다. (mixin 이랑 다른게 머야)
+
+/////////////////////////////////////// 선언 무효화 /////////////////////////////////////
+$rounded-corners: false;
+
+.button {
+  border: 1px solid black;
+  border-radius: if(
+    $rounded-corners,
+    5px,
+    null
+  ); // 이렇게 최종값이 null 이나 인용되지 않는 빈 문자열이면 마지 선언안된거처럼 작동한다.
+}
+
+///////////////////////////////////// interporation ///////////////////////////////////////
+@mixin define-emoji($name, $glyph) {
+  span.emoji-#{$name} {
+    // 지금 선택자를 변수로 받고 있다. 이런 동작은 특히 mixin 작성 시 유리하다.
+    font-family: IconFont;
+    font-variant: normal;
+    font-weight: normal;
+    content: $glyph;
+  }
+}
+
+@include define-emoji("women-holding-hands", "👭");
+
+// animation에 활용 예시
+@mixin inline-animation($duration) {
+  $name: inline-#{unique-id()};
+
+  @keyframes #{$name} {
+    @content;
+  }
+
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-iteration-count: infinite;
+}
+
+.pulse {
+  @include inline-animation(2s) {
+    from {
+      background-color: yellow;
+    }
+    to {
+      background-color: red;
+    }
+  }
+}
+
+// 주의할 것은, ""는 제거된다. 즉, #{"string"} 같은 형태에서 ""는 없어진다.
+
+/////////////////////////////////// default //////////////////////////////////////////////
+// !default 가 붙은 변수는 이미 정의되있다면 정의하지 않는다. 특히 library 사용에 좋다.
+
+// _library.scss
+$black: #000 !default;
+$border-radius: 0.25rem !default;
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
+
+code {
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+}
+
+@use "library" with (
+  $black: #222,
+  // 라이브러리 사용시 default 값을 준 것은 이 값으로 대체된다.
+  $border-radius: 0.1rem
+);
+
+// at-rule 부터 보면 됨.

@@ -3,12 +3,26 @@
 // watch : --watch 옵션을 같이 사용하면 자동 빌드된다.
 //   - directory에 적용 시 :를 사용한다. sass --watch app/sass:public/stylesheets
 
-@use 'partial'; //모듈을 include 했다. 이러면 해당 이름을 네임스페이쓰로서 변수, 함수, mixins 등 까지 가져 와 사용할 수 있다. (맨 첫줄에 정의되어야 한다.)
+@use "partial"; //모듈을 include 했다. 이러면 해당 이름을 네임스페이쓰로서 변수, 함수, mixins 등 까지 가져 와 사용할 수 있다. (맨 첫줄에 정의되어야 한다.)
 @use "sass:math";
 
 //변수. $로 사용한다. 단순 치환이라생각하면 된다.
-$font-stack: Helvetica, sans-serif;
+$font-stack: Helvetica, sans-serif; // -과 _ 는 동일하게 취급한다.
 $primary-color: #333;
+// 절차지향처럼, 위에선 333으로, 아래 줄 이후에는 222로 작동한다.
+$primary-color: #222;
+// 이것도 이런식으로 정의된건 전역, {} 안에 정의되면 로컬 변수가 된다.
+// {} 안에 정의 시 !global 을 붙이면 전역취급한다.
+
+$dark-theme: true !default;
+$primary-color: #f8bbd0 !default;
+$accent-color: #6a1b9a !default;
+
+@if $dark-theme {
+  // 이런 흐름제어 변수 안이면 {} 안이라도 global 로 취급된다.
+  $primary-color: darken($primary-color, 60%);
+  $accent-color: lighten($accent-color, 60%);
+}
 
 body {
   font: 100% $font-stack;
@@ -23,7 +37,9 @@ nav {
     list-style: none;
   }
 
-  li { display: inline-block; }
+  li {
+    display: inline-block;
+  }
 
   a {
     display: block;
@@ -34,9 +50,10 @@ nav {
 
 //mixin. css 뭉치이다.
 
-@mixin theme($theme: DarkGray) { // 기본값 부여가능
+@mixin theme($theme: DarkGray) {
+  // 기본값 부여가능
   background: $theme;
-  box-shadow: 0 0 1px rgba($theme, .25);
+  box-shadow: 0 0 1px rgba($theme, 0.25);
   color: #fff;
 }
 
@@ -52,7 +69,8 @@ nav {
 
 // 확장/상속
 /* This CSS will print because %message-shared is extended. */
-%message-shared { // 이렇게 확장할 뭉치를 만든다.
+%message-shared {
+  // 이렇게 확장할 뭉치를 만든다.
   border: 1px solid #ccc;
   padding: 10px;
   color: #333;

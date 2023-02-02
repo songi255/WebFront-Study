@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .blend {
+            width: 100vw;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        } 
+
+        .blend img {
+            position: absolute;
+        }
+
+        .blend h1 { 
+            font-size: 150px;
+            mix-blend-mode: overlay;
+            /* 이 blend mode 속성을 이용하면 글자를 사진에 겹쳐서 멋지게 할 수 있다.*/
+            /* 이를 이용해서 배경도 색깔과 겹쳐서 표현할 수 있다. (그림 위에 texture 그림을 오버레이 시키는 방식) */
+        }
+    </style>
+</head>
+<body>
+    <div class="blend">
+        <img src="https://i.picsum.photos/id/767/1280/720.jpg?hmac=tUyuyqqauRIaYqiu5-xERrWMoUnyGy02DyIKboD3j3A" alt="">
+        <h1 >Hello</h1>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* form 태그에 윗줄에 글자를 삽입할 수 있다.
+            이를 이용해서 다각형의 Line 에 글자삽입하는 것이 가능하다.(회전 속성을 쓰는 듯 하다.) */
+        fieldset { 
+            border: 1px solid#ddd; 
+            padding: 12px; 
+        } 
+        
+        legend { 
+            font-size: 18px; 
+            padding: 0 10px; 
+        }
+    </style>
+</head>
+<body>
+    <fieldset> 
+    <legend>양식</legend> 
+    <div> 
+        <label>이름 :</label><input type="text" placeholder="input Name" /> 
+    </div> 
+    <div> 
+        <label>비밀번호 : </label><input type="text" placeholder="입력 이름" /> 
+    </div> 
+</fieldset>
+</body>
+</html>

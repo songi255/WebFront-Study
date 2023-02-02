@@ -1,0 +1,24 @@
+.dummy {
+    /* 리사이징 가능하게 해준다. */
+    resize: horizontal;
+    /* # 같은걸로 페이지 내 스크롤 이동할 때, 부드럽게 이동한다. */
+    scroll-behavior: smooth;
+    /* textArea 에서 깜박이는 프롬프트를 캐럿. caret 이라고 한다. */
+    caret-color: red;
+    /* 매우 높은 table 의 경우, thead tr 을 posf 로 해주면 읽기가 편하다. */
+}
+
+input:placeholder-shown {
+    /* place holder 의 속성을 지정할 수 있다. */
+    border-bottom: 2px solid #04D939;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    /* pointer:fine 을 통해, 터치장치에서는 hover 가 작동하지 않게 할 수 있다. */
+    arrow:hover {
+        cursor: pointer;
+        color: #027333;
+        transform: translateX(0.5rem);
+    }
+}
