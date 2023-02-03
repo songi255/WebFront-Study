@@ -9,7 +9,12 @@ const ref = useRef("초기값");
 
 // 대표적인 용례는 어떨까?
 //   - 외부 system dom 조작
+//      - 이때, dom 을 파괴하거나 변경해서는 안된다.
+//      - 비파괴적인 browser API (focus, scroll 등) 만 사용하기를 권장한다.
 //   - 재렌더링 필요없는 state (스톱워치의 interval 같은)
+
+// ref 할당은 언제 일어날까? rendering 중에는 변하면 안되기 때문에 null 이다.
+// commit 될 때, 모든 변경사항이 적용된다. 그래서 ref 에 DOM 할당도 이 때 실행된다.
 
 ///////////////////// ref 로 DOM 제어하기 //////////////////////////////
 import { useRef } from "react";
@@ -144,4 +149,61 @@ for (let i = 0; i < 10; i++) {
   });
 }
 
-// 다른 구성요소의 DOM 노드에 엑세스 부터 보면 됨~~~
+// 다른 요소의 ref 에 접근
+/*
+아래처럼 props 에 담겨있는 ref 가 넘어갈까? 안된다! forwardRef() 로 직접 명시적으로 넘겨야한다.
+function MyInput(props) {
+  return <input {...props} />;
+}
+*/
+const MyInput = forwardRef((props, ref) => {
+  // forwardRef 로 넘겨주는 모습.
+  return <input {...props} ref={ref} />;
+});
+
+export function MyForm() {
+  const inputRef = useRef(null);
+
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
+  return (
+    <>
+      {/* ref 를 MyInput 에 할당했는데, 주석처리된 MyInput 에서 props 로 전달하고 있다.
+        사용자정의 Component 에 ref 를 전달했기때문에, ref 할당처리는 Component 에 달렸다. 기본적으로는 아무것도 할당하지 않는다.
+
+        작동하려면 Component 내부에서 forwardRef() 로 할당해줘야 한다. */}
+      <MyInput ref={inputRef} />
+      <button onClick={handleClick}>Focus the input</button>
+    </>
+  );
+}
+// 이렇게 하위요소 (입력, 버튼 등..) 가 ref 를 넘겨주는 것은 흔한 일이다.
+
+// Imperative Handle 로 ref 제어기능 제한
+const MyInput2 = forwardRef((props, ref) => {
+  const realInputRef = useRef(null);
+  // 노출될 ref 에 대해서, 특정 제어 외에는 허용하고 싶지 않을 경우 (css 조작 등 하지 말기 바란다면)
+  useImperativeHandle(ref, () => ({
+    // focus() 기능만 허용하도록 만든다.
+    focus() {
+      realInputRef.current.focus();
+    },
+  }));
+  // 지금 이 Comonenet 내부에서는 realInputRef 가 진짜 ref 이지만,
+  // useImperativeHandle() 로 인해, 실제 전달되는 값은 handle 이라는 객체가 전달된다.
+  return <input {...props} ref={realInputRef} />;
+});
+
+// flush sync
+setTodos([...todos, newTodo]);
+listRef.current.lastChild.scrollIntoView();
+// 위 순서로 코드가 진행되면, ref 할당 순서대로 따라가 볼때, ref 는 set 하기 이전의 snapshot 을 참조하는 꼴이 되어 버린다.
+// 이는 state update queue 가 존재하기 때문이다. 그래서 이런 비동기 상태 말고 동기적으로, 바로 setState 를 실행하려면 flushSync 를 사용한다.
+flushSync(() => {
+  // setState 를 즉시 실행하도록 강제한다.
+  setTodos([...todos, newTodo]);
+  // 이렇게 하면 state 가 먼저 update 되어, ref 할당도 진행된다.
+});
+listRef.current.lastChild.scrollIntoView();
