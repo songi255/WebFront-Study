@@ -1,0 +1,8 @@
+APIs 에 deprecated 생략했다.
+
+flushSync 간단하다
+
+createPortal 은 Modal 창 만들 때 쓴다.
+혹은 React Component 를 비React Node 로 변경해서 사용할 떄 쓴다. 필요할 때 마저 추가하자.
+
+나머지 clientAPI, serverAPI 는 next.js 를 공부할 때 살펴보도록 하자.
