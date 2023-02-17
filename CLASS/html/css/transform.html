@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transform</title>
+  <style>
+    .rotate{
+      transform: rotate(45deg);
+      /* transform: rotate(30rad); rad 단위도 사용가능 */
+    }
+    .skew{
+      transform: skew(45deg);
+    }
+    .scale{
+      transform: scale(2);
+    }
+    .translate{
+      transform: translate(200px, 200px);
+      
+      /* top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+        이렇게 가운데정렬도 할 수 있다.
+      */
+
+      /* 속성 한번에 주기 */
+      transform: translate(50%, 50%) rotate(45deg) skew(-37deg);
+    }
+
+    .perspective{
+      /* 그래서 perspective가 머임?? -> 원근감 정도로, 값이 크면 원근감이 크다고 한다.*/
+      /* 대충 적당한 값을 넣는 듯 하다. */
+      transform: perspective(1000px) rotateX(45deg) rotateY(45deg);
+    }
+
+    .verf{
+      width: 180px;
+      height: 180px;
+      /* transform: translate(80px, 60px) rotate(30deg) scale(1.5); */
+    }
+
+    .verf2:hover{
+      transform: perspective(1000px) rotateY(45deg) translateZ(-50px);
+    }
+
+    div{
+      width: 100px;
+      height: 100px;
+      border: 3px solid black;
+    }
+
+    div:hover{
+      transform: translate(80px, 60px) rotate(30deg) scale(1.5);
+      /* transition : 일정 시간동안 변화하게 함. */
+      transition-duration: 2s;
+      transition-delay: 1s;
+      transition: 3s 2s all ease;
+      /* 그냥 transition: 1s 해도 된다. */
+    }
+
+    @keyframes aniName1{
+      0% {
+        background-color: black;
+      }
+
+      50% {
+        background-color: red;
+        transform: rotate(15deg);
+      }
+    }
+
+    .animation{
+      animation: aniName1 3s ease 0s infinite 
+    }
+  </style>
+</head>
+<body>
+  <div class="rotate"></div>
+  <div class="skew"></div>
+  <div class="scale"></div>
+  <div class="translate"></div>
+  <div class="perspective"></div>
+  <div class="verf"></div>
+  <div class="verf2" style="width: 300px; height: 300px; background-color: blue;"></div>
+  <div class="animation" style="width: 180px; height: 180px; background-color: green;"></div>
+</body>
+</html>

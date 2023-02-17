@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      width: 120px;
+      height: 120px;
+      border: 1px solid black;
+      position: absolute;
+    }
+    .box1{
+      background-color: red;
+      top: 20px;
+      left: 200px;
+      z-index: 1;
+      /* z-index로 순서를 정할 수 있다. */
+    }
+    .box2{
+      background-color: green;
+      top: 50px;
+      left: 260px;
+    }
+    .box3{
+      background-color: blue;
+      top: 80px;
+      left: 230px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box1"></div>
+  <div class="box2"></div>
+  <div class="box3"></div>
+</body>
+</html>

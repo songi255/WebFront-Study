@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- inline방식으로 사용할 수도 있다. 그러나 사용하지 않는다. -->
+  <button onclick="GOGO()"></button>
+  <!-- defer란????????? 검색하기!! -->
+  <script>
+    /*
+      변수 : "한 값"을 저장하기 위한 메모리 주소에 붙인 "이름" 또는 메모리 공간 그 자체
+      호이스팅 : "런타임" 이전에 "선언문" 들이 끌어올려지는 행위
+      변수타입 : 원시형(number, string, Boolean, null, undefined), 참조형(Array, Object, Function)
+      js 는 call stack - heap 사용한다.
+    */
+    console.log(typeof(22));
+    console.log(typeof(2.22)); // 정수실수 상관없이 다 number이다.
+    console.log(typeof(false));
+    const a = [1,2,"d",4,5]; // 배열. type은 object. 실제 배열이 아니라 "배열유사객체" 라고 한다.
+    const b = {}; // 객체. type은 object
+    //function은 function타입이다.
+    a[-1] = "b"; //이러면 순서가 바뀌는게 아니고, dict처럼 접근할 수 있다.
+    
+    const first = function(){
+      // 이렇게 변수에 담는다면 무명함수로써 사용할 수 있다.
+      // 다만 이건 "first 변수"를 선언한 후에 function객체를 "할당"하는 것이므로, 호이스팅된다고 생각하고 사용할 수는 없는 것이다.
+      
+    }
+    
+    //객체 (dict)
+    const c = {a:1, c:'haha'};
+    c['c'];
+    c['b'] = 99; // 추가도 가능
+    c.f = function(){} // 이렇게 .으로도 추가가능.
+    
+    //입력
+    const input = prompt("입력하세여 : "); // prompt는 숫자를 입력해도 무조건 문자열로 받는다.
+
+    a == b; // 값만 비교. 1 == '1' 이 된다.
+    a === b; // type까지 비교
+    a !== b; // != 도 !== 로 쓰자.
+
+    for(let i = 0; i < 10; i++){
+      console.log(i);
+    }
+
+    //split
+    const splitStr = 'a|b|c|d';
+    const splitArr = splitStr.split('|');
+    
+    //향상된 for 문
+    for(let str of splitArr){
+
+    }
+
+    //event driven 방식
+    //이벤트 등록 3단계
+    // 1. 함수만들기
+    // 2. 함수 등록
+    // 3. 이벤트 발생
+    function GOGO(){
+      console.log("gogo");
+    }
+
+    const button = document.querySelector('button').addEventListener("click", GOGO);
+    
+    //element 동적 생성
+    let btn = document.createElement('button');
+    let text = document.createTextNode('test');
+    btn.append(text);
+    document.querySelector("body").append(btn);
+
+    //속성변경
+    btn.setAttribute("style", "background-color: red;");
+
+    // 다양한 이벤트
+    btn.addEventListener('click', function(e){
+      console.log(e);
+      console.log(e.target);
+    });
+    // click 외에, change, keydown, keyup, 등등 가능...
+    // 콘솔을 보면 발생이벤트가 콘솔에 찍힌다. 중점적으로 볼 것은 target이다..
+    // 이중 change는 엔터쳐야만 발생한다.
+    // 한글 인식 문제로 keyup을 쓸 때가 많다.
+    // e.code 를 많이 쓸 것이다. "keyA"같이 나온다.
+
+    // undefined, null, 0, "", false는 부정의 의미
+    // 그래서 id 검증할때 if(!id) 라고 해버리기도 한다.(자동형변환)
+
+    // 속성 추가
+    btn.classList.add('mybtn'); // 이렇게 setAttribute 사용하지 않고도 편하게 추가할 수 있다.
+    btn.classList.remove('mybtn');
+    btn.classList.toggle('toggle') // toggle 한다.
+    btn.classList.contains('dd');
+    btn.classList.replace('test', 'chicken');
+  </script>
+  
+  
+  <!-- jQuery -->
+  <!-- Cross-browsing issue 가 해결되었다. -->
+  <!-- CDN : 로컬서버 서비스. 근데 웹에선 쓰지 않는다. -->
+  <!-- .min 파일 : 최소화파일. html최소화 같은.. 공백도 없앤 파일을 의미한다. -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+    //console.log(document.querySelector("div"));
+    $("div"); // 이렇게 바로 QS 사용할 수 있다.
+    $("button").on("click", function(){
+      $("body").CSS("backgroundColor", "gray"); // CSS 변경도 쉽다.
+    }); // eventListener 등록도 쉽다.
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <header>
+        <nav class="header-nav">
+            <ul class="header-ul">
+                <li class="header-li">Google 정보</li>
+                <li class="header-li">스토어</li>
+            </ul>
+            <ul class="header-ul">
+                <li class="header-li"><a href="#">Gmail</a></li>
+                <li class="header-li">이미지</li>
+                <li class="header-li"><button class="toggle-button">다크모드</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-container">
+        <header>
+            <h1><img class="image-logo"  src="images/logo.png" alt="로고이미지" /></h1>
+            <div class="search-container">
+                <input class="search-input" type="text" placeholder="Google 검색 또는 URL 입력"/>
+                <img class="search-icon" src="images/search.png" alt="검색 돋보기 이미지" />
+            </div>
+            <section class="bookmark-wrapper">
+                <!-- 아래처럼, a안에 들어간 모든 요소가 클릭가능하다 -->
+                <a href="#" class="bookmark-item">
+                    <div class="img-icon-wrapper"><img src="images/naver.png" alt="" /></div>
+                    <div class="text">naver</div>
+                </a>
+                
+
+                <div class="bookmark-item">
+                    <div class="img-icon-wrapper">+</div>
+                    <div class="text">추가하기</div>
+                </div>
+            </section>
+        </header>
+    </main>
+
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="input-file"/>
+    <button type="button" id="submit-button">파일 전송하기</button>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const inputFile = document.querySelector("#input-file");
+        const submitButton = document.querySelector("#submit-button");
+        submitButton.addEventListener("click", () => {
+            console.log(inputFile.files); // input태그의 files속성에 담겨있다.
+            const formData = new FormData(); // form태그를 안썼기때문일까? formData를 직접만들어주고있다.
+            formData.append('inputTagName', inputFile.files[0]); // formData에 key-value값으로 넣어줬다.
+
+            axios.post("http://localhost:8080/api/file", formData, { // post로 업로드한다.
+                headers: { // 파일 업로드를 위한 속성
+                    "Content-Type": "multipart.form-data"
+                    // 인코딩 설정도 필요할 듯 하다.. 파일 이름이 깨지네.
+                }
+            });
+        });
+    </script>
+</body>
+</html>
